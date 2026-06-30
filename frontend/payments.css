@@ -1,0 +1,36 @@
+/* ================================================================
+   SmartDormX — Payments Styles
+   ================================================================ */
+
+/* Payments Page */
+.payment-summary {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:14px; margin-bottom:24px;
+}
+.payment-card {
+  border-radius:var(--r-lg); padding:22px; color:#fff; position:relative; overflow:hidden;
+  transition:var(--t); animation:fadeInUp .4s ease both;
+}
+.payment-card::before {
+  content:''; position:absolute; inset:0;
+  background:rgba(255,255,255,.08); border-radius:inherit;
+}
+.payment-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-lg); }
+.payment-card.collected { background:var(--grad-success); box-shadow:0 6px 24px rgba(17,153,142,.35); }
+.payment-card.pending   { background:var(--grad-warning); box-shadow:0 6px 24px rgba(247,151,30,.35); }
+.payment-card.overdue   { background:var(--grad-danger);  box-shadow:0 6px 24px rgba(255,65,108,.35); }
+.payment-card.total     { background:var(--grad-primary); box-shadow:0 6px 24px rgba(123,47,247,.35); }
+.pc-label { font-size:.72rem; font-weight:600; letter-spacing:.05em; text-transform:uppercase; opacity:.8; margin-bottom:6px; }
+.pc-amount { font-family:'Space Grotesk',sans-serif; font-size:1.65rem; font-weight:800; }
+.pc-icon { position:absolute; right:16px; top:50%; transform:translateY(-50%); font-size:2rem; opacity:.2; }
+
+.fee-row { display:flex; align-items:center; gap:14px; padding:13px 0; border-bottom:1px solid rgba(0,0,0,.04); }
+.fee-row:last-child { border-bottom:none; }
+.fee-ava {
+  width:36px; height:36px; border-radius:50%; background:var(--grad-primary);
+  color:#fff; font-size:.72rem; font-weight:700;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.fee-name { font-size:.87rem; font-weight:600; color:var(--text-1); }
+.fee-roll { font-size:.73rem; color:var(--text-3); }
+.fee-amount { margin-left:auto; font-size:.9rem; font-weight:700; color:var(--text-1); }

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Room | SmartDormX</title>
+  
+  <!-- External Libraries -->
+  <link rel="stylesheet" href="../frontend/theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="header-slidebar.css">
+  <link rel="stylesheet" href="std-room.css">
+    <link rel="stylesheet" href="student-portal.css"/>
+</head>
+<body>
+
+
+
+<!-- Overlay -->
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- ═══════════════════════════════════════════
+     TOP HEADER
+     ═══════════════════════════════════════════ -->
+<header class="top-header">
+  <div class="header-left">
+    <!-- Hamburger Menu Trigger -->
+    <button class="menu-trigger" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Logo Section -->
+    <div class="logo-section">
+      <div class="logo-text">
+        <h1>Fachhochschule</h1>
+        <span>Student Portal</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="header-right">
+    <!-- Profile Section -->
+    <button class="header-profile-section" onclick="toggleProfileDropdown()">
+      <div class="header-profile-info">
+        <span class="header-profile-name" id="headerName">Fahad Ali</span>
+        <span class="header-profile-role" id="headerRole">B22F0403CS046</span>
+      </div>
+      <div class="header-profile-avatar" id="headerAvatar">FA</div>
+      <i class="fas fa-chevron-down profile-arrow" id="profileArrow"></i>
+    </button>
+    
+    <!-- Profile Dropdown Menu -->
+    <div class="profile-dropdown" id="profileDropdown">
+      <a href="std-profile.html" class="dropdown-item">
+        <i class="fas fa-user"></i> My Profile
+      </a>
+      <div class="dropdown-divider"></div>
+      <a href="sign-in.html" class="dropdown-item logout">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+    </div>
+  </div>
+</header>
+</header>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  
+  <!-- Sidebar Header with Close Icon -->
+  <div class="sidebar-header"><i>SmartDorm ----</i>
+    <!-- Close Button (X) - LEFT SIDE -->
+    <button class="sidebar-close" onclick="closeSidebar()">
+      <i class="fas fa-times"></i>
+    </button>
+    
+    <!-- Right side content (optional - could be logo or text) -->
+    <div class="sidebar-header-right">
+      <div class="logo-indicator"></div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a href="std-dashboard.html" class="nav-item">
+      <i class="fas fa-home"></i> <span>Dashboard</span>
+    </a>
+    <a href="std-room.html" class="nav-item active">
+      <i class="fas fa-bed"></i> <span>My Room</span>
+    </a>
+    <a href="std-mess.html" class="nav-item">
+      <i class="fas fa-utensils"></i> <span>Mess & Dining</span>
+    </a>
+    <a href="std-fee.html" class="nav-item">
+      <i class="fas fa-file-invoice-dollar"></i> <span>My Fee</span>
+    </a>
+    <a href="std-requests.html" class="nav-item">
+      <i class="fas fa-clipboard-check"></i> <span>Requests</span>
+    </a>
+    <a href="std-notifications.html" class="nav-item">
+      <i class="fas fa-bell"></i> <span>Notifications</span>
+    </a>
+    <a href="std-profile.html" class="nav-item">
+      <i class="fas fa-user-circle"></i> <span>My Profile</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <a href="sign-in.html" class="logout-btn">
+      <i class="fas fa-right-from-bracket"></i> <span>Logout</span>
+    </a>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+  
+  <!-- Page Title -->
+  <div class="page-title-section">
+    <div class="page-icon-wrapper">
+      <i class="fas fa-bed"></i>
+    </div>
+    <div class="page-title-content">
+      <h1 class="page-title">My Room</h1>
+      <p class="page-subtitle">Manage your hostel room and check availability</p>
+    </div>
+  </div>
+
+  <!-- Info Cards -->
+  <div class="info-cards-grid">
+    <div class="info-card">
+      <div class="info-card-icon rent">
+        <i class="fas fa-door-open"></i>
+      </div>
+      <div class="info-card-content">
+        <span class="info-label">Room Rent</span>
+        <span class="info-value" id="roomRent">PKR 15,000</span>
+        <span class="info-sub">Per Semester</span>
+      </div>
+    </div>
+    
+    <div class="info-card">
+      <div class="info-card-icon hostel">
+        <i class="fas fa-building"></i>
+      </div>
+      <div class="info-card-content">
+        <span class="info-label">Hostel</span>
+        <span class="info-value" id="hostelName">Hostel C</span>
+        <span class="info-sub" id="roomNumber">Room CF-225</span>
+      </div>
+    </div>
+    
+    <div class="info-card">
+      <div class="info-card-icon payment">
+        <i class="fas fa-credit-card"></i>
+      </div>
+      <div class="info-card-content">
+        <span class="info-label">Payment Status</span>
+        <span class="info-value status-pending" id="paymentStatus">Pending</span>
+        <span class="info-sub">Due: 15th Next Month</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Occupancy Section -->
+  <div class="occupancy-section">
+    <div class="occupancy-left">
+      <h3 class="occupancy-title">
+        <i class="fas fa-chart-bar"></i> Live Occupied Slots
+      </h3>
+      <div class="occupancy-info">
+        <div class="occupancy-count">
+          <span class="occupied-num" id="occupiedNum">2</span>
+          <span class="occupied-sep">/</span>
+          <span class="occupied-total" id="totalNum">3</span>
+          <span class="occupied-label">Beds Occupied</span>
+        </div>
+        <div class="occupancy-status-text" id="occupancyStatusText">
+          <span class="status-dot orange"></span>
+          <span>Moderately Occupied</span>
+        </div>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="mainProgressFill" style="width: 66%;">
+          <div class="progress-glow"></div>
+        </div>
+      </div>
+      <p class="occupancy-note">
+        <i class="fas fa-info-circle"></i> Maximum 3 students allowed per room
+      </p>
+    </div>
+    <div class="occupancy-right">
+      
+      <a href="std-requests.html" class="swap-btn" id="change-swap-Btn">
+        <i class="fas fa-calendar-check"></i>
+        <span>Change/<br>Swap</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Roommates Section -->
+  <div class="section-card">
+    <div class="section-header">
+      <div>
+        <h3><i class="fas fa-users"></i> Roommates</h3>
+        <p>Current residents in Room <span id="roomDisplay">CF-225</span></p>
+      </div>
+      <span class="badge" id="roommatesCount">3 Students</span>
+    </div>
+    <div class="roommates-grid" id="roommatesGrid"></div>
+  </div>
+
+  <!-- Room Availability Section -->
+  <div class="section-card">
+    <div class="section-header">
+      <div>
+        <h3><i class="fas fa-search"></i> Check Room Availability</h3>
+        <p>Search and filter rooms across 5 hostels</p>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters-bar">
+      <div class="filter-group">
+        <div class="filter-input">
+          <i class="fas fa-search"></i>
+          <input type="text" id="searchInput" placeholder="Search room (e.g., CF-225, AG-101)..." oninput="filterRooms()">
+        </div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-select">
+          <i class="fas fa-building"></i>
+          <select id="hostelFilter" onchange="filterRooms()">
+            <option value="all">All Hostels</option>
+            <option value="Hostel A">Hostel A</option>
+            <option value="Hostel B">Hostel B</option>
+            <option value="Hostel C">Hostel C</option>
+            <option value="Railway Hostel">Railway Hostel</option>
+            <option value="School Hostel">School Hostel</option>
+          </select>
+        </div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-select">
+          <i class="fas fa-sliders-h"></i>
+          <select id="availabilityFilter" onchange="filterRooms()">
+            <option value="all">All Availability</option>
+            <option value="available">Has Space</option>
+            <option value="empty">Completely Empty</option>
+          </select>
+        </div>
+      </div>
+      <button class="filter-reset-btn" onclick="resetFilters()">
+        <i class="fas fa-redo-alt"></i> Reset
+      </button>
+    </div>
+
+    <!-- Results Count -->
+    <div class="results-info">
+      <span id="resultsCount">Showing rooms</span>
+    </div>
+
+    <!-- Rooms Grid -->
+    <div class="rooms-grid" id="roomsGrid"></div>
+  </div>
+
+</main>
+
+<!-- Room Details Modal -->
+<div class="modal-overlay" id="roomModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-container">
+    <div class="modal-header">
+      <div>
+        <h3 id="modalTitle">Room Details</h3>
+        <p id="modalSubtitle">Room information</p>
+      </div>
+      <button class="modal-close-btn" onclick="closeModal()" aria-label="Close modal">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<!-- 1. Supabase JS Library (v2) -->
+<script src="supabase-proxy.js"></script>
+<!-- 2. Config & helpers File -->
+<script src="supabase-config.js"></script>
+<script src="supabase-helpers.js"></script>
+<!-- 3. Existing scripts -->
+<script src="header-slidebar.js"></script>
+<script src="std-room.js"></script>
+</body>
+</html>

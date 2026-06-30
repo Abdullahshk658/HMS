@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live TV | SmartDormX Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="top-header.css">
+    <style>
+        body { background: #f9fafb; overflow: hidden; }
+        .live-tv-main {
+            margin-top: var(--header-h, 64px);
+            height: calc(100vh - var(--header-h, 64px));
+            width: 100%;
+            background: #f9fafb;
+            position: relative;
+        }
+        .fr-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            /* Important: prevents iframe from interrupting parent */
+        }
+        .fr-error {
+            display: none;
+            text-align: center;
+            padding: 60px 30px;
+            font-family: 'Segoe UI', sans-serif;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            max-width: 500px;
+        }
+        .fr-error h2 { color: #ef4444; margin-bottom: 12px; }
+        .fr-error p { color: #475569; line-height: 1.6; margin: 8px 0; }
+        .fr-error code {
+            background: #f1f5f9;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        .fr-error button {
+            margin-top: 16px;
+            padding: 10px 20px;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ========== TOP HEADER ========== -->
+<header class="top-header" role="banner">
+    <div class="header-left">
+        <button class="menu-toggle-btn" id="menuToggle" onclick="toggleSidebar()" aria-label="Open sidebar menu" type="button">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="logo-section">
+            <div class="logo-text">
+                <h1>SmartDormX</h1>
+                <span>Admin Portal</span>
+            </div>
+        </div>
+    </div>
+    <div class="header-right">
+        <div class="profile-wrapper" onclick="toggleProfileDropdown()" role="button" tabindex="0">
+            <div class="profile-info">
+                <span class="profile-name" id="adminName">Nabeel Ashraf</span>
+                <span class="profile-role" id="adminRole">Administrator</span>
+            </div>
+            <div class="profile-avatar" id="adminAvatar">NA</div>
+            <i class="fas fa-chevron-down profile-arrow" id="profileArrow"></i>
+        </div>
+        <div class="profile-dropdown" id="profileDropdown" role="menu">
+            <a href="profile.html" class="dropdown-link"><i class="fas fa-user"></i> My Profile</a>
+            <hr class="dropdown-divider">
+            <a href="sign-in.html" class="dropdown-link logout" onclick="handleLogout(event)"><i class="fas fa-right-from-bracket"></i> Logout</a>
+        </div>
+    </div>
+</header>
+
+<!-- ========== SIDEBAR ========== -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+        <div class="sidebar-brand">
+            <div class="sidebar-brand-icon"><i class="fa">SmartDorm -------</i></div>
+        </div>
+        <button class="sidebar-close-btn" onclick="toggleSidebar()" type="button"><i class="fas fa-xmark"></i></button>
+    </div>
+    <nav class="sidebar-menu">
+        <a href="dashboard.html" class="nav-link"><i class="fas fa-house"></i><span>Dashboard</span></a>
+        <a href="residents.html" class="nav-link"><i class="fas fa-users"></i><span>Residents</span></a>
+        <a href="alertslogs.html" class="nav-link active"><i class="fas fa-tower-broadcast"></i><span>Live TV</span></a>
+        <a href="announcements.html" class="nav-link"><i class="fas fa-bullhorn"></i><span>Announcements</span></a>
+        <a href="mess.html" class="nav-link"><i class="fas fa-utensils"></i><span>Mess & Dining</span></a>
+        <a href="payments.html" class="nav-link"><i class="fas fa-credit-card"></i><span>Payments</span></a>
+        <a href="requests.html" class="nav-link"><i class="fas fa-clipboard-list"></i><span>Requests</span></a>
+        <a href="profile.html" class="nav-link"><i class="fas fa-circle-user"></i><span>My Profile</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+        <a href="sign-in.html" class="logout-link" onclick="handleLogout(event)"><i class="fas fa-right-from-bracket"></i><span>Logout</span></a>
+    </div>
+</aside>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- ========== LIVE TV ========== -->
+<main class="live-tv-main">
+    <iframe
+        id="frFrame"
+        class="fr-iframe"
+        src="/"
+        title="Facial Recognition Live Feed"
+        allow="camera; microphone; autoplay"
+        loading="eager"
+        referrerpolicy="no-referrer"
+        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals">
+    </iframe>
+
+    <div class="fr-error" id="frError">
+        <h2><i class="fas fa-exclamation-triangle"></i> FR Server Not Running</h2>
+        <p>Please start the Flask backend:</p>
+        <p><code>cd backend &amp;&amp; python app.py</code></p>
+        <button onclick="reloadFrame()">🔄 Retry</button>
+    </div>
+</main>
+
+<script src="top-header.js"></script>
+<script>
+    // ─────────────────────────────────────────────
+    // CRITICAL: Prevent Live Server from auto-reloading
+    // when iframe stream stutters
+    // ─────────────────────────────────────────────
+    
+    // Disable Live Server hot-reload for this page
+    if (window.location.host.includes('127.0.0.1') || window.location.host.includes('localhost')) {
+        // Block any WebSocket reload attempts from Live Server
+        const originalWebSocket = window.WebSocket;
+        window.WebSocket = function(url, protocols) {
+            if (url && url.includes('ws://')) {
+                console.log('[LiveTV] Blocked Live Server WebSocket to prevent reload');
+                return {
+                    addEventListener: () => {},
+                    removeEventListener: () => {},
+                    send: () => {},
+                    close: () => {},
+                    readyState: 3
+                };
+            }
+            return new originalWebSocket(url, protocols);
+        };
+    }
+
+    let frameLoaded = false;
+    let healthCheckInterval = null;
+
+    const frame = document.getElementById('frFrame');
+    
+    frame.addEventListener('load', () => {
+        frameLoaded = true;
+        console.log('[LiveTV] Frame loaded successfully');
+        document.getElementById('frError').style.display = 'none';
+        frame.style.display = 'block';
+    });
+
+    // Initial health check (only on first load)
+    setTimeout(() => {
+        if (!frameLoaded) {
+            showError();
+        }
+    }, 6000);
+
+    // Periodically check if Flask is alive — but DO NOT reload iframe
+    healthCheckInterval = setInterval(async () => {
+        try {
+            // Use a HEAD request to a lightweight endpoint
+            const res = await fetch('/stats', { 
+                method: 'GET', 
+                cache: 'no-store',
+                mode: 'cors'
+            });
+            if (!res.ok && frameLoaded) {
+                console.warn('[LiveTV] Flask responded with error but iframe is loaded — leaving as is');
+            }
+        } catch (e) {
+            // Server unreachable — but only show error if we never loaded
+            if (!frameLoaded) {
+                showError();
+            }
+        }
+    }, 15000); // Check every 15 seconds, NOT every 3
+
+    function showError() {
+        document.getElementById('frError').style.display = 'block';
+        frame.style.display = 'none';
+    }
+
+    function reloadFrame() {
+        document.getElementById('frError').style.display = 'none';
+        frame.style.display = 'block';
+        frame.src = '/?t=' + Date.now();
+        frameLoaded = false;
+        setTimeout(() => {
+            if (!frameLoaded) showError();
+        }, 6000);
+    }
+
+    // Cleanup on page leave
+    window.addEventListener('beforeunload', () => {
+        if (healthCheckInterval) clearInterval(healthCheckInterval);
+    });
+</script>
+</body>
+</html>

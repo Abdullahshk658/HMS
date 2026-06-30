@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Requests & Complaints | SmartDormX Student</title>
+  
+  <!-- External Libraries -->
+  <link rel="stylesheet" href="../frontend/theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="header-slidebar.css">
+  <link rel="stylesheet" href="std-requests.css">
+    <link rel="stylesheet" href="student-portal.css"/>
+</head>
+<body>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- ═══════════════════════════════════════════
+     TOP HEADER
+     ═══════════════════════════════════════════ -->
+<header class="top-header">
+  <div class="header-left">
+    <!-- Hamburger Menu Trigger -->
+    <button class="menu-trigger" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Logo Section -->
+    <div class="logo-section">
+      <div class="logo-text">
+        <h1>Fachhochschule</h1>
+        <span>Student Portal</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="header-right">
+    <!-- Profile Section -->
+    <button class="header-profile-section" onclick="toggleProfileDropdown()">
+      <div class="header-profile-info">
+        <span class="header-profile-name" id="headerName">Fahad Ali</span>
+        <span class="header-profile-role" id="headerRole">B22F0403CS046</span>
+      </div>
+      <div class="header-profile-avatar" id="headerAvatar">FA</div>
+      <i class="fas fa-chevron-down profile-arrow" id="profileArrow"></i>
+    </button>
+    
+    <!-- Profile Dropdown Menu -->
+    <div class="profile-dropdown" id="profileDropdown">
+      <a href="std-profile.html" class="dropdown-item">
+        <i class="fas fa-user"></i> My Profile
+      </a>
+      <div class="dropdown-divider"></div>
+      <a href="sign-in.html" class="dropdown-item logout">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+    </div>
+  </div>
+</header>
+</header>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  
+  <!-- Sidebar Header with Close Icon -->
+  <div class="sidebar-header"><i>SmartDorm ----</i>
+    <!-- Close Button (X) - LEFT SIDE -->
+    <button class="sidebar-close" onclick="closeSidebar()">
+      <i class="fas fa-times"></i>
+    </button>
+    
+    <!-- Right side content (optional - could be logo or text) -->
+    <div class="sidebar-header-right">
+      <div class="logo-indicator"></div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a href="std-dashboard.html" class="nav-item">
+      <i class="fas fa-home"></i> <span>Dashboard</span>
+    </a>
+    <a href="std-room.html" class="nav-item">
+      <i class="fas fa-bed"></i> <span>My Room</span>
+    </a>
+    <a href="std-mess.html" class="nav-item">
+      <i class="fas fa-utensils"></i> <span>Mess & Dining</span>
+    </a>
+    <a href="std-fee.html" class="nav-item">
+      <i class="fas fa-file-invoice-dollar"></i> <span>My Fee</span>
+    </a>
+    <a href="std-requests.html" class="nav-item active">
+      <i class="fas fa-clipboard-check"></i> <span>Requests</span>
+    </a>
+    <a href="std-notifications.html" class="nav-item">
+      <i class="fas fa-bell"></i> <span>Notifications</span>
+    </a>
+    <a href="std-profile.html" class="nav-item">
+      <i class="fas fa-user-circle"></i> <span>My Profile</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <a href="sign-in.html" class="logout-btn">
+      <i class="fas fa-right-from-bracket"></i> <span>Logout</span>
+    </a>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+  
+  <!-- Page Title -->
+  <div class="page-title-section">
+    <div class="page-icon-wrapper">
+      <i class="fas fa-clipboard-list"></i>
+    </div>
+    <div class="page-title-content">
+      <h1 class="page-title">Application & Complaints</h1>
+      <p class="page-subtitle">Submit applications & complaints and share your problem</p>
+    </div>
+  </div>
+  
+  <!-- Tabs Navigation -->
+  <div class="tabs-container">
+    <button class="tab-btn active" data-tab="new" onclick="switchTab('new')">
+      <i class="fas fa-plus-circle"></i> New Request
+    </button>
+    <div class="tab-right">
+      <button class="tab-btn history-tab" data-tab="history" onclick="switchTab('history')">
+        <i class="fas fa-history"></i> History
+        <span class="tab-badge" id="historyBadge">0</span>
+      </button>
+      <button class="tab-btn" data-tab="trash" onclick="switchTab('trash')">
+        <i class="fas fa-trash-alt"></i> Trash
+        <span class="tab-badge" id="trashBadge">0</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- NEW REQUEST TAB -->
+  <div id="newTab" class="tab-section active">
+    <div class="request-form-card">
+      <div class="form-header">
+        <h3><i class="fas fa-edit"></i> Submit New Request</h3>
+        <p>Fill in the details below to submit an application or complaint</p>
+      </div>
+      
+      <form id="requestForm" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group required">
+            <label for="requestType"><i class="fas fa-tag"></i> Request Type</label>
+            <select id="requestType" name="requestType" required onchange="toggleSeverityOptions()">
+              <option value="">-- Select Type --</option>
+              <option value="application">Application</option>
+              <option value="complaint">Complaint</option>
+            </select>
+          </div>
+          <div class="form-group required">
+            <label for="category"><i class="fas fa-folder"></i> Category</label>
+            <select id="category" name="category" required>
+              <option value="">-- Select Category --</option>
+              <option value="maintenance">Maintenance</option>
+              <option value="mess">Mess & Food</option>
+              <option value="room">Room Issues</option>
+              <option value="billing">Billing & Payments</option>
+              <option value="security">Security</option>
+              <option value="medical">Medical Issue</option>
+              <option value="transport">Transport Issue</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group required">
+          <label for="subject"><i class="fas fa-heading"></i> Subject</label>
+          <input type="text" id="subject" name="subject" placeholder="Brief title for your request" required maxlength="100">
+        </div>
+
+        <div class="form-group required" style="margin-top:18px;">
+          <label for="description"><i class="fas fa-align-left"></i> Description</label>
+          <textarea id="description" name="description" rows="5" placeholder="Provide detailed information about your request..." required maxlength="500" oninput="updateCharCount()"></textarea>
+          <small class="field-hint"><span id="charCount">0</span>/500 characters</small>
+        </div>
+
+        <div class="form-group" id="severityGroup" style="display:none; margin-top:18px;">
+          <label for="severity"><i class="fas fa-exclamation-triangle"></i> Priority Level</label>
+          <select id="severity" name="severity">
+            <option value="low">Low - Can wait</option>
+            <option value="medium" selected>Medium - Normal priority</option>
+            <option value="high">High - Urgent attention needed</option>
+          </select>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="resetForm()"><i class="fas fa-undo"></i> Reset</button>
+          <button type="submit" class="btn btn-primary" id="submitBtn"><i class="fas fa-paper-plane"></i> Submit Request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- HISTORY TAB -->
+  <div id="historyTab" class="tab-section">
+    <!-- Filters Section - ALL IN ONE LINE -->
+    <div class="section-actions">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="historySearch" placeholder="Search history..." oninput="filterHistory()">
+      </div>
+      
+      <div class="filter-group">
+        <select id="historyTypeFilter" onchange="filterHistory()">
+          <option value="">All Types</option>
+          <option value="application">Applications</option>
+          <option value="complaint">Complaints</option>
+        </select>
+        <select id="historyStatusFilter" onchange="filterHistory()">
+          <option value="">All Status</option>
+          <option value="pending">Pending</option>
+          <option value="resolved">Resolved</option>
+          <option value="rejected">Rejected</option>
+        </select>
+      </div>
+      
+      <div class="reset-btn-wrapper">
+        <button class="btn-reset" onclick="resetHistoryFilters()">
+          <i class="fas fa-redo"></i> Reset
+        </button>
+      </div>
+      
+      <div class="action-buttons">
+        <button class="btn-clear-all" onclick="confirmClearAllHistory()">
+          <i class="fas fa-trash-alt"></i> Clear All
+        </button>
+      </div>
+    </div>
+
+    <!-- History List -->
+    <div id="historyList" class="items-list"></div>
+    
+    <!-- Empty State -->
+    <div id="historyEmpty" class="empty-state" style="display: none;">
+      <i class="fas fa-clipboard"></i>
+      <h3>No History Yet</h3>
+      <p>Your submitted requests will appear here</p>
+      <button class="btn btn-primary btn-sm" onclick="switchTab('new')" style="margin-top: 0.2rem;">
+        <i class="fas fa-plus"></i> Create First Request
+      </button>
+    </div>
+  </div>
+
+  <!-- TRASH TAB -->
+  <div id="trashTab" class="tab-section">
+    <div class="section-actions">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="trashSearch" placeholder="Search trash..." oninput="filterTrash()">
+      </div>
+      <div class="action-buttons">
+        <button class="btn btn-danger btn-sm" onclick="confirmEmptyTrash()" id="emptyTrashBtn" disabled>
+          <i class="fas fa-trash-alt"></i> Empty Trash
+        </button>
+        <button class="btn btn-secondary btn-sm" onclick="restoreAll()" id="restoreAllBtn" disabled>
+          <i class="fas fa-undo"></i> Restore All
+        </button>
+      </div>
+    </div>
+
+    <div id="trashList" class="items-list"></div>
+    
+    <div id="trashEmpty" class="empty-state" style="display: none;">
+      <i class="fas fa-trash-restore"></i>
+      <h3>Trash is Empty</h3>
+      <p>Deleted requests will appear here for 30 days</p>
+    </div>
+  </div>
+</main>
+
+<!-- Detail Modal -->
+<div class="modal" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="detailModalTitle">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="detailModalTitle"><i class="fas fa-info-circle"></i> Request Details</h3>
+      <button class="modal-close" onclick="closeModal('detailModal')" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body" id="detailModalBody"></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('detailModal')">Close</button>
+      <button class="btn btn-danger" id="deleteFromHistoryBtn" onclick="deleteRequestDirect(currentRequestId)">
+        <i class="fas fa-trash"></i> Delete
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Modal (Only for Empty Trash & Clear All) -->
+<div class="modal" id="confirmModal" role="alertdialog" aria-modal="true">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="confirmTitle">Confirm Action</h3>
+      <button class="modal-close" onclick="closeModal('confirmModal')" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p id="confirmMessage">Are you sure you want to proceed?</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('confirmModal')">Cancel</button>
+      <button class="btn btn-danger" id="confirmActionBtn" onclick="executeConfirmedAction()">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- Empty Trash Modal -->
+<div class="modal" id="emptyTrashModal" role="alertdialog" aria-modal="true">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3><i class="fas fa-exclamation-triangle" style="color: var(--danger);"></i> Permanent Deletion</h3>
+      <button class="modal-close" onclick="closeModal('emptyTrashModal')" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p><strong>Warning:</strong> Emptying the trash will permanently delete all items. This action cannot be undone.</p>
+      <div style="margin-top: 1rem;">
+        <input type="checkbox" id="confirmEmptyCheck" onchange="toggleEmptyTrashBtn()">
+        <label for="confirmEmptyCheck" style="margin-left: 8px;">I understand that this action is permanent</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('emptyTrashModal')">Cancel</button>
+      <button class="btn btn-danger" id="finalEmptyBtn" onclick="performEmptyTrash()" disabled>
+        <i class="fas fa-trash-alt"></i> Yes, Empty Trash
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Minimal Toast Container (Only for empty trash scenarios) -->
+<div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+<!-- Scripts -->
+<!-- 1. Supabase JS Library (v2) -->
+<script src="supabase-proxy.js"></script>
+<!-- 2. Config & helpers File -->
+<script src="supabase-config.js"></script>
+<script src="supabase-helpers.js"></script>
+<!-- 3. Existing scripts -->
+<script src="header-slidebar.js"></script>
+<script src="std-requests.js"></script>
+</body>
+</html>

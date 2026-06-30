@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcements | SmartDormX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="announcements.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="top-header.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+ 
+    <!-- ========== TOP HEADER ========== -->
+    <header class="top-header" role="banner">
+        <div class="header-left">
+            <!-- Menu Toggle Button (Top Left) -->
+            <button class="menu-toggle-btn" id="menuToggle" onclick="toggleSidebar()" aria-label="Open sidebar menu" title="Toggle Sidebar" type="button">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+            
+            <!-- Logo Section -->
+            <div class="logo-section">
+                
+        
+                <div class="logo-text">
+                    <h1>SmartDormX</h1>
+                    <span>Admin Portal</span>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="header-right">
+            <!-- Profile Section -->
+            <div class="profile-wrapper" onclick="toggleProfileDropdown()" role="button" tabindex="0" aria-haspopup="true" aria-expanded="false" aria-label="User profile menu">
+                <div class="profile-info">
+                    <span class="profile-name" id="adminName">Nabeel Ashraf</span>
+                    <span class="profile-role" id="adminRole">Administrator</span>
+                </div>
+                <div class="profile-avatar" id="adminAvatar" aria-hidden="true">NA</div>
+                <i class="fas fa-chevron-down profile-arrow" id="profileArrow" aria-hidden="true"></i>
+            </div>
+            
+            <!-- Profile Dropdown -->
+            <div class="profile-dropdown" id="profileDropdown" role="menu" aria-label="Profile options">
+                <a href="profile.html" class="dropdown-link" role="menuitem">
+                    <i class="fas fa-user" aria-hidden="true"></i> My Profile
+                </a>
+                <hr class="dropdown-divider">
+                <a href="sign-in.html" class="dropdown-link logout" onclick="handleLogout(event)" role="menuitem">
+                    <i class="fas fa-right-from-bracket" aria-hidden="true"></i> Logout
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== SIDEBAR ========== -->
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+        <div class="sidebar-top">
+            <div class="sidebar-brand">
+                <div class="sidebar-brand-icon" aria-hidden="true">
+                    <i class="fa">  SmartDorm -------</i>
+                </div>
+               
+            </div>
+            <!-- Close Button (Cross Icon) -->
+            <button class="sidebar-close-btn" onclick="toggleSidebar()" aria-label="Close sidebar menu" type="button">
+                <i class="fas fa-xmark" aria-hidden="true"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-menu" role="navigation">
+            <a href="dashboard.html" class="nav-link" aria-current="page">
+                <i class="fas fa-house" aria-hidden="true"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="residents.html" class="nav-link">
+                <i class="fas fa-users" aria-hidden="true"></i>
+                <span>Residents</span>
+            </a>
+            <a href="alertslogs.html" class="nav-link">
+                <i class="fas fa-tower-broadcast" aria-hidden="true"></i>
+                <span>Live TV</span>
+            </a>
+            <a href="announcements.html" class="nav-link active">
+                <i class="fas fa-bullhorn" aria-hidden="true"></i>         
+                <span>Announcements</span>
+            </a>
+            <a href="mess.html" class="nav-link">
+                <i class="fas fa-utensils" aria-hidden="true"></i> 
+              
+              <span>Mess & Dining</span>
+            </a>
+            <a href="payments.html" class="nav-link">
+                <i class="fas fa-credit-card" aria-hidden="true"></i>
+                <span>Payments</span>
+            </a>
+            <a href="requests.html" class="nav-link">
+                <i class="fas fa-clipboard-list" aria-hidden="true"></i>
+                <span>Requests</span>
+            </a>
+            <a href="profile.html" class="nav-link">
+                <i class="fas fa-circle-user" aria-hidden="true"></i>
+                <span>My Profile</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-bottom">
+            <a href="sign-in.html" class="logout-link" onclick="handleLogout(event)">
+                <i class="fas fa-right-from-bracket" aria-hidden="true"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- ========== OVERLAY (Click Outside to Close Sidebar) ========== -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()" aria-hidden="true"></div>
+
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="main-content">
+        
+        <!-- ========== PAGE HEADER SECTION ========== -->
+        <div class="page-header-section">
+            <div class="header-content-left">
+                <div class="header-icon-box">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <div class="header-text-content">
+                    <h1 class="page-main-heading">Announcement Center</h1>
+                    <p class="page-sub-heading">Broadcast important updates and manage all communications</p>
+                </div>
+            </div>
+            
+            <div class="header-actions-right">
+                <button class="action-btn btn-secondary" onclick="viewHistory()">
+                    <i class="fas fa-history"></i>
+                    <span>View History</span>
+                </button>
+                <button class="action-btn btn-primary" onclick="scrollToForm()">
+                    <i class="fas fa-plus"></i>
+                    <span>Create New</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card stat-primary">
+                <div class="stat-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="totalAnnouncements">0</h3>
+                    <p>Total Sent</p>
+                </div>
+            </div>
+            
+            <div class="stat-card stat-success">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="totalRecipients">0</h3>
+                    <p>Total Recipients</p>
+                </div>
+            </div>
+            
+            <div class="stat-card stat-warning">
+                <div class="stat-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="urgentCount">0</h3>
+                    <p>Urgent Alerts</p>
+                </div>
+            </div>
+            
+            <div class="stat-card stat-info">
+                <div class="stat-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 id="todayCount">0</h3>
+                    <p>Today's Posts</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Announcement Form -->
+        <div class="card announce-card">
+            <div class="card-header">
+                <h3><i class="fas fa-paper-plane"></i> Create New Announcement</h3>
+            </div>
+            <div class="card-body">
+                <form id="announceForm" class="announce-form" novalidate>
+                    <div class="form-row two-cols">
+                        <div>
+                            <label for="targetDept"><i class="fas fa-bullseye"></i> Target Audience <span class="required">*</span></label>
+                            <select id="targetDept" required>
+                                <option value="">Select audience...</option>
+                                <option value="all">🌐 All Residents</option>
+                                <option value="girls">👧 Girls Hostel Only</option>
+                                <option value="boys">👦 Boys Hostel Only</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="priority"><i class="fas fa-exclamation-circle"></i> Priority Level</label>
+                            <select id="priority">
+                                <option value="normal">🔵 Normal</option>
+                                <option value="important">🟡 Important</option>
+                                <option value="urgent">🔴 Urgent</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="subject"><i class="fas fa-heading"></i> Subject <span class="required">*</span></label>
+                        <input type="text" id="subject" placeholder="Enter a short, clear subject..." required maxlength="100">
+                        <small class="form-hint">Maximum 100 characters</small>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="message"><i class="fas fa-comment-alt"></i> Message <span class="required">*</span></label>
+                        <textarea id="message" placeholder="Write your announcement details here..." rows="6" required maxlength="2000"></textarea>
+                        <small class="form-hint"><span id="charCount">0</span>/2000 characters</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" onclick="resetForm()">
+                            <i class="fas fa-undo"></i> Reset
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="showPreview()">
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Announcement History -->
+        <div class="card history-card">
+            <div class="card-header">
+                <h3><i class="fas fa-history"></i> Announcement History</h3>
+                <div class="header-actions">
+                    <span class="badge" id="historyCount">0 sent</span>
+                    <button class="btn btn-danger btn-sm" onclick="confirmClearHistory()">
+                        <i class="fas fa-trash"></i> Clear All
+                    </button>
+                </div>
+            </div>
+            
+            <div class="history-filters">
+                <select id="filterTarget" onchange="renderHistory()">
+                    <option value="">All Audiences</option>
+                    <option value="all">All Residents</option>
+                    <option value="girls">Girls Only</option>
+                    <option value="boys">Boys Only</option>
+                </select>
+                <select id="filterPriority" onchange="renderHistory()">
+                    <option value="">All Priorities</option>
+                    <option value="normal">Normal</option>
+                    <option value="important">Important</option>
+                    <option value="urgent">Urgent</option>
+                </select>
+            </div>
+
+            <div id="historyEmpty" class="empty-state">
+                <div class="empty-icon"><i class="fas fa-inbox"></i></div>
+                <p>No announcements sent yet</p>
+                <small>Send your first announcement using the form above</small>
+            </div>
+
+            <ul id="historyList" class="history-list">
+                <!-- Populated by JavaScript -->
+            </ul>
+        </div>
+    </main>
+
+    <!-- Preview Modal -->
+    <div class="modal" id="previewModal" onclick="closeModalOnOverlay(event, 'previewModal')">
+        <div class="modal-content modal-large" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3><i class="fas fa-eye"></i> Preview Announcement</h3>
+                <button class="modal-close" onclick="closePreview()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="preview-card">
+                    <div class="preview-header" id="previewPriorityBar">
+                        <span class="preview-badge" id="previewTarget">All Residents</span>
+                        <span class="priority-indicator" id="previewPriorityBadge">Normal</span>
+                    </div>
+                    <h4 id="previewSubject" class="preview-subject"></h4>
+                    <div class="preview-message-container">
+                        <p id="previewMessage" class="preview-message"></p>
+                    </div>
+                    <div class="preview-footer">
+                        <div class="preview-meta">
+                            <span><i class="fas fa-user"></i> Sent by: <strong>Nabeel Ashraf</strong></span>
+                            <span><i class="fas fa-clock"></i> <span id="previewTime"></span></span>
+                        </div>
+                        <div class="preview-recipients">
+                            <i class="fas fa-users"></i> Will be sent to: <strong id="previewRecipients">All Residents</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="confirmation-info">
+                    <div class="info-item">
+                        <i class="fas fa-check-circle text-success"></i>
+                        <span>Message will be saved to history</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-bell text-primary"></i>
+                        <span>Recipients will receive notification</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-shield-alt text-info"></i>
+                        <span>Cannot be undone after sending</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closePreview()" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> Close
+                </button>
+                <button onclick="sendFromPreview()" class="btn btn-primary btn-lg">
+                    <i class="fas fa-paper-plane"></i> Confirm & Send Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Announcement Modal -->
+    <div class="modal" id="viewModal" onclick="closeModalOnOverlay(event, 'viewModal')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3><i class="fas fa-eye"></i> Announcement Details</h3>
+                <button class="modal-close" onclick="closeViewModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="announcement-detail">
+                    <div class="detail-row">
+                        <strong>Subject:</strong>
+                        <span id="detailSubject"></span>
+                    </div>
+                    <div class="detail-row">
+                        <strong>Target:</strong>
+                        <span id="detailTarget"></span>
+                    </div>
+                    <div class="detail-row">
+                        <strong>Priority:</strong>
+                        <span id="detailPriority"></span>
+                    </div>
+                    <div class="detail-row">
+                        <strong>Sent:</strong>
+                        <span id="detailTime"></span>
+                    </div>
+                    <div class="detail-row full">
+                        <strong>Message:</strong>
+                        <p id="detailMessage" class="detail-message"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeViewModal()" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Modal -->
+    <div class="modal" id="confirmModal" onclick="closeModalOnOverlay(event, 'confirmModal')">
+        <div class="modal-content modal-small" onclick="event.stopPropagation()">
+            <div class="modal-body text-center">
+                <div class="confirm-icon" id="confirmIcon">⚠️</div>
+                <h3 id="confirmTitle">Confirm Action</h3>
+                <p id="confirmMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeConfirm()" class="btn btn-secondary">Cancel</button>
+                <button onclick="executeConfirm()" id="confirmYesBtn" class="btn btn-primary">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase JS Client (v2) -->
+<script src="supabase-proxy.js"></script>
+
+<!-- Supabase Config -->
+<script src="supabase-config.js"></script>
+
+<!-- Supabase Helpers -->
+<script src="supabase-helpers.js"></script>
+
+<!-- Your existing scripts -->
+<script src="announcements.js"></script>
+<script src="top-header.js"></script>
+</body>
+</html>

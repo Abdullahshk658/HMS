@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Fee | SmartDormX - Student Portal</title>
+  
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../frontend/theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="header-slidebar.css">
+  <link rel="stylesheet" href="std-fee.css">
+    <link rel="stylesheet" href="student-portal.css"/>
+</head>
+<body>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- ═══════════════════════════════════════════
+     TOP HEADER
+     ═══════════════════════════════════════════ -->
+<header class="top-header">
+  <div class="header-left">
+    <!-- Hamburger Menu Trigger -->
+    <button class="menu-trigger" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Logo Section -->
+    <div class="logo-section">
+      <div class="logo-text">
+        <h1>Fachhochschule</h1>
+        <span>Student Portal</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="header-right">
+    <!-- Profile Section -->
+    <button class="header-profile-section" onclick="toggleProfileDropdown()">
+      <div class="header-profile-info">
+        <span class="header-profile-name" id="headerName">Fahad Ali</span>
+        <span class="header-profile-role" id="headerRole">B22F0403CS046</span>
+      </div>
+      <div class="header-profile-avatar" id="headerAvatar">FA</div>
+      <i class="fas fa-chevron-down profile-arrow" id="profileArrow"></i>
+    </button>
+    
+    <!-- Profile Dropdown Menu -->
+    <div class="profile-dropdown" id="profileDropdown">
+      <a href="std-profile.html" class="dropdown-item">
+        <i class="fas fa-user"></i> My Profile
+      </a>
+      <div class="dropdown-divider"></div>
+      <a href="sign-in.html" class="dropdown-item logout">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+    </div>
+  </div>
+</header>
+</header>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  
+  <!-- Sidebar Header with Close Icon -->
+  <div class="sidebar-header"><i>SmartDorm ----</i>
+    <!-- Close Button (X) - LEFT SIDE -->
+    <button class="sidebar-close" onclick="closeSidebar()">
+      <i class="fas fa-times"></i>
+    </button>
+    
+    <!-- Right side content (optional - could be logo or text) -->
+    <div class="sidebar-header-right">
+      <div class="logo-indicator"></div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a href="std-dashboard.html" class="nav-item">
+      <i class="fas fa-home"></i> <span>Dashboard</span>
+    </a>
+    <a href="std-room.html" class="nav-item">
+      <i class="fas fa-bed"></i> <span>My Room</span>
+    </a>
+    <a href="std-mess.html" class="nav-item">
+      <i class="fas fa-utensils"></i> <span>Mess & Dining</span>
+    </a>
+    <a href="std-fee.html" class="nav-item active">
+      <i class="fas fa-file-invoice-dollar"></i> <span>My Fee</span>
+    </a>
+    <a href="std-requests.html" class="nav-item">
+      <i class="fas fa-clipboard-check"></i> <span>Requests</span>
+    </a>
+    <a href="std-notifications.html" class="nav-item">
+      <i class="fas fa-bell"></i> <span>Notifications</span>
+    </a>
+    <a href="std-profile.html" class="nav-item">
+      <i class="fas fa-user-circle"></i> <span>My Profile</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <a href="sign-in.html" class="logout-btn">
+      <i class="fas fa-right-from-bracket"></i> <span>Logout</span>
+    </a>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+  
+  <!-- Page Title -->
+  <div class="page-title-section">
+    <div class="page-icon-wrapper"><i class="fas fa-file-invoice-dollar"></i></div>
+    <div class="page-title-content">
+      <h1 class="page-title">My Fee Records</h1>
+      <p class="page-subtitle">View and manage your hostel and mess fee payments</p>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs-container">
+    <button class="tab-btn active" data-tab="hostel" onclick="switchTab('hostel')">
+      <i class="fas fa-building"></i> Hostel Rent
+      <span class="tab-badge" id="hostel-count">0</span>
+    </button>
+    <div class="tab-right">
+      <button class="tab-btn" data-tab="mess" onclick="switchTab('mess')">
+        <i class="fas fa-utensils"></i> Mess Fee
+        <span class="tab-badge" id="mess-count">0</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Hostel Section -->
+  <div class="tab-section active" id="section-hostel">
+    <div class="section-card">
+      <div class="section-header">
+        <h3><i class="fas fa-building"></i> Hostel Fee Records</h3>
+        <button class="btn btn-primary" onclick="openUploadModal('hostel')">
+          <i class="fas fa-upload"></i> <span>Upload Payment</span>
+        </button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>Voucher No</th><th>Session</th><th>Amount</th><th>Due Date</th><th>Status</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="hostel-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mess Section with Month Filter & Reset Button -->
+  <div class="tab-section" id="section-mess">
+    <div class="section-card">
+      <div class="section-header">
+        <h3><i class="fas fa-utensils"></i> Mess Fee Records</h3>
+        <button class="btn btn-primary" onclick="openUploadModal('mess')">
+          <i class="fas fa-upload"></i> <span>Upload Payment</span>
+        </button>
+      </div>
+      
+      <!-- Month Filter with Reset Button -->
+      <div class="section-actions">
+        <div class="filter-group">
+          <label for="mess-month-filter"><i class="fas fa-calendar"></i> Filter by Month:</label>
+          <input type="month" id="mess-month-filter" onchange="filterMessByMonth()">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="clearMessFilter()">
+            <i class="fas fa-redo"></i> <span>Reset</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>Voucher No</th><th>Month</th><th>Amount</th><th>Due Date</th><th>Status</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="mess-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Upload Modal -->
+<div class="modal" id="uploadModal" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modalTitle"><i class="fas fa-upload"></i> Upload Payment Proof</h3>
+      <button class="modal-close" onclick="closeUploadModal()" aria-label="Close Modal">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <form id="uploadForm" onsubmit="submitPayment(event)" novalidate>
+      <div class="modal-body">
+        <div class="form-info">
+          <p><i class="fas fa-info-circle"></i> Please make your payment against the <strong id="modalSessionText">SPRING 2025</strong> session with Voucher No: <strong id="modalVoucherNo">B22F183/17/LC</strong></p>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="bankVoucherNo">Bank Voucher No <span class="required">*</span></label>
+            <input type="text" id="bankVoucherNo" name="bankVoucherNo" placeholder="Enter bank voucher number" required minlength="3" maxlength="50">
+            <span class="error-message" id="error-bankVoucherNo"></span>
+          </div>
+          <div class="form-group">
+            <label for="branchCode">Branch Code <span class="required">*</span></label>
+            <input type="number" id="branchCode" name="branchCode" placeholder="Enter branch code" required min="1" max="99999">
+            <span class="error-message" id="error-branchCode"></span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="bankName">Bank Name <span class="required">*</span></label>
+            <input type="text" id="bankName" name="bankName" placeholder="Enter bank name" required minlength="2" maxlength="100" pattern="[A-Za-z\s]+">
+            <span class="error-message" id="error-bankName"></span>
+          </div>
+          <div class="form-group">
+            <label for="bankBranch">Bank Branch <span class="required">*</span></label>
+            <input type="text" id="bankBranch" name="bankBranch" placeholder="Enter branch name" required minlength="2" maxlength="100">
+            <span class="error-message" id="error-bankBranch"></span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="paymentDate">Payment Date <span class="required">*</span></label>
+            <input type="date" id="paymentDate" name="paymentDate" required>
+            <span class="error-message" id="error-paymentDate"></span>
+          </div>
+          <div class="form-group">
+            <label for="amountPaid">Amount Paid (PKR) <span class="required">*</span></label>
+            <input type="number" id="amountPaid" name="amountPaid" placeholder="Enter amount" required min="1" step="0.01">
+            <span class="error-message" id="error-amountPaid"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="voucherFile">Upload Bank Voucher <span class="required">*</span></label>
+          <div class="file-upload-wrapper">
+            <input type="file" id="voucherFile" name="voucherFile" accept="image/*,.pdf" required onchange="handleFileSelect(this)">
+            <div class="file-upload-box" id="fileUploadBox">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <div><span>Choose File</span><small>JPG, PNG, PDF (Max 5MB)</small></div>
+            </div>
+          </div>
+          <div class="file-preview" id="filePreview"></div>
+          <span class="error-message" id="error-voucherFile"></span>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeUploadModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="submitBtn">
+          <i class="fas fa-check"></i> Submit Payment
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- View Voucher Modal -->
+<div class="modal" id="viewVoucherModal" role="dialog" aria-labelledby="voucherModalTitle" aria-modal="true">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="voucherModalTitle"><i class="fas fa-receipt"></i> Fee Voucher</h3>
+      <button class="modal-close" onclick="closeViewVoucherModal()" aria-label="Close Modal">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body" id="voucherContent"></div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" onclick="downloadVoucher()"><i class="fas fa-download"></i> Download PDF</button>
+      <button class="btn btn-secondary" onclick="closeViewVoucherModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Alert Modal -->
+<div class="modal" id="alertModal" role="alertdialog" aria-modal="true">
+  <div class="modal-content alert-content">
+    <div class="modal-header">
+      <h3 id="alertTitle"><i class="fas fa-info-circle"></i> Notification</h3>
+      <button class="modal-close" onclick="closeAlertModal()" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p id="alertMessage"></p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" onclick="closeAlertModal()">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript -->
+ <!-- 1. Supabase JS Library (v2) -->
+<script src="supabase-proxy.js"></script>
+<!-- 2. Config & helpers File -->
+<script src="supabase-config.js"></script>
+<script src="supabase-helpers.js"></script>
+<!-- 3. Existing scripts -->
+<script src="header-slidebar.js"></script>
+<script src="std-fee.js"></script>
+
+</body>
+</html>

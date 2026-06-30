@@ -1,0 +1,46 @@
+/* ================================================================
+   SmartDormX — Announcements Styles
+   ================================================================ */
+
+/* Announcements Page */
+.announce-grid {
+  display:grid; gap:14px;
+}
+.announce-card {
+  background:#fff; border-radius:var(--r-lg);
+  border:1px solid var(--border); box-shadow:var(--shadow-sm);
+  padding:20px 22px; display:flex; gap:16px; align-items:flex-start;
+  transition:var(--t); animation:fadeInUp .35s ease both;
+}
+.announce-card:hover { box-shadow:var(--shadow-md); transform:translateY(-1px); }
+.announce-card.priority-high   { border-left:3px solid var(--danger); }
+.announce-card.priority-medium { border-left:3px solid var(--warning); }
+.announce-card.priority-low    { border-left:3px solid var(--teal); }
+
+.announce-icon {
+  width:42px; height:42px; border-radius:12px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-size:1rem;
+}
+.ai-red    { background:rgba(255,65,108,.12); color:var(--danger); }
+.ai-orange { background:rgba(247,151,30,.12); color:var(--warning); }
+.ai-teal   { background:rgba(0,180,216,.12);  color:var(--teal); }
+.ai-primary{ background:rgba(123,47,247,.12); color:var(--primary); }
+
+.announce-body { flex:1; min-width:0; }
+.announce-title { font-size:.95rem; font-weight:700; color:var(--text-1); margin-bottom:5px; }
+.announce-text  { font-size:.83rem; color:var(--text-2); line-height:1.55; margin-bottom:10px; }
+.announce-meta  {
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  font-size:.73rem; color:var(--text-3);
+}
+.announce-meta span { display:flex; align-items:center; gap:4px; }
+.announce-actions { display:flex; gap:6px; align-items:flex-start; flex-shrink:0; }
+
+.priority-pills { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+.prio-pill {
+  padding:6px 16px; border-radius:var(--r-full); border:1.5px solid var(--border);
+  font-size:.78rem; font-weight:600; cursor:pointer; transition:var(--t); background:#fff;
+}
+.prio-pill.active.high   { background:rgba(255,65,108,.12); border-color:var(--danger); color:var(--danger); }
+.prio-pill.active.medium { background:rgba(247,151,30,.12); border-color:var(--warning); color:var(--warning); }
+.prio-pill.active.low    { background:rgba(0,180,216,.12); border-color:var(--teal); color:var(--teal); }

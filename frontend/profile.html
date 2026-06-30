@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrator Profile | SmartDormX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="top-header.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+ <!-- ========== TOP HEADER ========== -->
+ <header class="top-header" role="banner">
+    <div class="header-left">
+        <!-- Menu Toggle Button (Top Left) -->
+        <button class="menu-toggle-btn" id="menuToggle" onclick="toggleSidebar()" aria-label="Open sidebar menu" title="Toggle Sidebar" type="button">
+            <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+        
+        <!-- Logo Section -->
+        <div class="logo-section">
+            
+    
+            <div class="logo-text">
+                <h1>SmartDormX</h1>
+                <span>Admin Portal</span>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="header-right">
+        <!-- Profile Section -->
+        <div class="profile-wrapper" onclick="toggleProfileDropdown()" role="button" tabindex="0" aria-haspopup="true" aria-expanded="false" aria-label="User profile menu">
+            <div class="profile-info">
+                <span class="profile-name" id="adminName">Nabeel Ashraf</span>
+                <span class="profile-role" id="adminRole">Administrator</span>
+            </div>
+            <div class="profile-avatar" id="adminAvatar" aria-hidden="true">NA</div>
+            <i class="fas fa-chevron-down profile-arrow" id="profileArrow" aria-hidden="true"></i>
+        </div>
+        
+        <!-- Profile Dropdown -->
+        <div class="profile-dropdown" id="profileDropdown" role="menu" aria-label="Profile options">
+            <a href="profile.html" class="dropdown-link" role="menuitem">
+                <i class="fas fa-user" aria-hidden="true"></i> My Profile
+            </a>
+            <hr class="dropdown-divider">
+            <a href="sign-in.html" class="dropdown-link logout" onclick="handleLogout(event)" role="menuitem">
+                <i class="fas fa-right-from-bracket" aria-hidden="true"></i> Logout
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- ========== SIDEBAR ========== -->
+<aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="sidebar-top">
+        <div class="sidebar-brand">
+            <div class="sidebar-brand-icon" aria-hidden="true">
+                <i class="fa">  SmartDorm -------</i>
+            </div>
+           
+        </div>
+        <!-- Close Button (Cross Icon) -->
+        <button class="sidebar-close-btn" onclick="toggleSidebar()" aria-label="Close sidebar menu" type="button">
+            <i class="fas fa-xmark" aria-hidden="true"></i>
+        </button>
+    </div>
+    
+    <nav class="sidebar-menu" role="navigation">
+        <a href="dashboard.html" class="nav-link" aria-current="page">
+            <i class="fas fa-house" aria-hidden="true"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="residents.html" class="nav-link">
+            <i class="fas fa-users" aria-hidden="true"></i>
+            <span>Residents</span>
+        </a>
+        <a href="alertslogs.html" class="nav-link">
+            <i class="fas fa-tower-broadcast" aria-hidden="true"></i>
+            <span>Live TV</span>
+        </a>
+        <a href="announcements.html" class="nav-link">
+            <i class="fas fa-bullhorn" aria-hidden="true"></i>         
+            <span>Announcements</span>
+        </a>
+        <a href="mess.html" class="nav-link">
+            <i class="fas fa-utensils" aria-hidden="true"></i> 
+          
+          <span>Mess & Dining</span>
+        </a>
+        <a href="payments.html" class="nav-link">
+            <i class="fas fa-credit-card" aria-hidden="true"></i>
+            <span>Payments</span>
+        </a>
+        <a href="requests.html" class="nav-link">
+            <i class="fas fa-clipboard-list" aria-hidden="true"></i>
+            <span>Requests</span>
+        </a>
+        <a href="profile.html" class="nav-link active">
+            <i class="fas fa-circle-user" aria-hidden="true"></i>
+            <span>My Profile</span>
+        </a>
+    </nav>
+    
+    <div class="sidebar-bottom">
+        <a href="sign-in.html" class="logout-link" onclick="handleLogout(event)">
+            <i class="fas fa-right-from-bracket" aria-hidden="true"></i>
+            <span>Logout</span>
+        </a>
+    </div>
+</aside>
+
+<!-- ========== OVERLAY (Click Outside to Close Sidebar) ========== -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()" aria-hidden="true"></div>
+
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1><i class="fas fa-user-shield" style="color: rgb(21, 66, 43);"></i> Profile</h1>
+            <p class="page-subtitle">Manage your account settings and preferences</p>
+        </div>
+
+        <!-- Profile Grid -->
+        <div class="profile-grid">
+            <!-- Profile Card -->
+            <div class="card profile-card">
+                <div class="profile-header">
+                    <div class="avatar-section">
+                        <img src="https://ui-avatars.com/api/?name=Nabeel+Ashraf&background=008080&color=fff&size=200" 
+                             class="profile-avatar-large" 
+                             alt="Profile Picture" 
+                             id="profileAvatar">
+                        <div class="avatar-overlay">
+                            <button class="avatar-btn" onclick="triggerAvatarUpload()" type="button" aria-label="Change profile picture">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                            <input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="handleAvatarUpload(event)">
+                        </div>
+                    </div>
+                    <div class="profile-name-section">
+                        <h2 id="displayName">Nabeel Ashraf</h2>
+                        <span class="profile-role-badge" id="displayRole">Super Admin</span>
+                        <span class="profile-email">admin@pafiast.edu.pk</span>
+                    </div>
+                </div>
+
+                <hr>
+
+                <h3 class="section-title"><i class="fas fa-id-card"></i> Account Information</h3>
+
+                <form id="profileForm" class="profile-form" autocomplete="off" novalidate>
+                    
+                    <!-- Full Name -->
+                    <div class="form-row">
+                        <label for="fullName"><i class="fas fa-user"></i> Full Name</label>
+                        <input id="fullName" name="name" type="text" required placeholder="Enter full name" value="Nabeel Ashraf" aria-describedby="fullNameError">
+                        <small id="fullNameError" class="field-error" role="alert" aria-live="polite"></small>
+                    </div>
+
+                    <!-- Email & Phone -->
+                    <div class="form-row two-cols">
+                        <!-- Email - GMAIL ONLY -->
+                        <div class="form-row">
+                            <label for="email"><i class="fas fa-at"></i> Email Address (Gmail Only)</label>
+                            <input id="email" name="email" type="email" placeholder="yourname@gmail.com" value="">
+                            <small class="field-hint">Only Gmail addresses are accepted (e.g., user@gmail.com)</small>
+                            <small class="field-error" id="emailError"></small>
+                        </div>
+                        <div>
+                            <label for="phone"><i class="fas fa-phone"></i> Phone Number</label>
+                            <input id="phone" name="phone" type="tel" required placeholder="+92 333 5788345" value="+92 333 5788345" aria-describedby="phoneError">
+                            <small id="phoneError" class="field-error" role="alert" aria-live="polite"></small>
+                        </div>
+                    </div>
+
+                    <!-- Role & Gender -->
+                    <div class="form-row two-cols">
+                        <div>
+                            <label for="role"><i class="fas fa-user-tag"></i> Role</label>
+                            <input type="text" value="Super Admin (Fixed)" readonly class="readonly-field" style="background: #f0fdf4; color: #059669; font-weight: 600;">
+                            <small class="field-hint">Super Admin role cannot be changed</small>
+                        </div>
+                        <div>
+                            <label for="gender"><i class="fas fa-venus-mars"></i> Gender</label>
+                            <select id="gender" name="gender" required aria-describedby="genderError">
+                                <option value="">Select gender *</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                            <small id="genderError" class="field-error" role="alert" aria-live="polite"></small>
+                        </div>
+                    </div>
+
+                    <!-- Blood Group & Employee ID -->
+                    <div class="form-row two-cols">
+                        <div>
+                            <label for="blood"><i class="fas fa-droplet"></i> Blood Group</label>
+                            <select id="blood" name="blood_group" aria-describedby="bloodError">
+                                <option value="">Select (optional)</option>
+                                <option>A+</option>
+                                <option>A-</option>
+                                <option>B+</option>
+                                <option>B-</option>
+                                <option>O+</option>
+                                <option>O-</option>
+                                <option>AB+</option>
+                                <option>AB-</option>
+                            </select>
+                            <small id="bloodError" class="field-error" role="alert" aria-live="polite"></small>
+                        </div>
+                        <div>
+                            <label for="employeeId"><i class="fas fa-fingerprint"></i> Employee ID</label>
+                            <input id="employeeId" name="employee_id" type="text" readonly value="SUPER-ADMIN-2026-001" class="readonly-field">
+                        </div>
+                    </div>
+
+                    <!-- City & CNIC -->
+                    <div class="form-row two-cols">
+                        <div>
+                            <label for="city"><i class="fas fa-city"></i> City</label>
+                            <input id="city" name="city" type="text" required placeholder="Enter your city" value="" aria-describedby="cityError">
+                            <small id="cityError" class="field-error" role="alert" aria-live="polite"></small>
+                        </div>
+                        <div>
+                            <label for="cnic"><i class="fas fa-id-card-alt"></i> CNIC Number</label>
+                            <input id="cnic" name="cnic" type="text" required placeholder="12345-1234567-1" value="" maxlength="15" aria-describedby="cnicError">
+                            <small class="field-hint">Format: XXXXX-XXXXXXX-X</small>
+                            <small id="cnicError" class="field-error" role="alert" aria-live="polite"></small>
+                        </div>
+                    </div>
+
+                    <!-- Portal Code (Readonly) -->
+                    <div class="form-row">
+                        <label for="portalCode"><i class="fas fa-qrcode"></i> Portal Access Code</label>
+                        <input id="portalCode" name="portal_code" type="text" readonly class="readonly-field" value="" style="background: #f8fafc; font-family: monospace; letter-spacing: 1px;">
+                        <small class="field-hint">Auto-generated unique identifier for system access</small>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" onclick="discardChanges()">
+                            <i class="fas fa-undo"></i> Discard
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                    </div>
+                </form>
+
+                <hr>
+
+                <!-- Account Audit Section -->
+                <section class="audit-section">
+                    <h4 class="section-title"><i class="fas fa-history"></i> Account Audit</h4>
+                    <div class="audit-info-compact">
+                        <span class="audit-item updated"><i class="fas fa-clock"></i> Updated: <strong id="lastUpdated">Jan 21, 2026</strong></span>
+                        <span class="audit-item source"><i class="fas fa-server"></i> Source: <strong>Secure Server</strong></span>
+                        <span class="audit-item created"><i class="fas fa-calendar"></i> Created: <strong>Jan 01, 2024</strong></span>
+                        <span class="audit-item type"><i class="fas fa-shield-alt"></i> Type: <strong>Super Admin (Full Access)</strong></span>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Side Panel -->
+            <div class="profile-sidebar">
+                <!-- Quick Actions -->
+                <div class="card quick-actions-card">
+                    <h3 class="section-title"><i class="fas fa-bolt"></i> Quick Actions</h3>
+                    
+                    <div class="quick-action-item" onclick="window.location.href='residents.html'">
+                        <div class="quick-action-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="quick-action-info">
+                            <h4>Manage Residents</h4>
+                            <p>View and manage all student information</p>
+                        </div>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+
+                    <div class="quick-action-item" onclick="window.location.href='alertslogs.html'">
+                        <div class="quick-action-icon">
+                            <i class="fas fa-tower-broadcast"></i>
+                        </div>
+                        <div class="quick-action-info">
+                            <h4>Live TV Monitor</h4>
+                            <p>Real-time security and camera overview</p>
+                        </div>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+
+                    <div class="quick-action-item" onclick="window.location.href='requests.html'">
+                        <div class="quick-action-icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <div class="quick-action-info">
+                            <h4>View Requests</h4>
+                            <p>Manage applications & complaints</p>
+                        </div>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+
+                <!-- Super Admin Privileges -->
+                <div class="card privileges-card">
+                    <h3 class="section-title"><i class="fas fa-crown"></i> Super Admin Privileges</h3>
+                    
+                    <div class="privilege-item">
+                        <i class="fas fa-check-circle privilege-icon success"></i>
+                        <div class="privilege-info">
+                            <h4>Full System Access</h4>
+                            <p>Access to all modules and features</p>
+                        </div>
+                    </div>
+
+                    <div class="privilege-item">
+                        <i class="fas fa-check-circle privilege-icon success"></i>
+                        <div class="privilege-info">
+                            <h4>Manage User Roles</h4>
+                            <p>Create, edit, and delete user accounts</p>
+                        </div>
+                    </div>
+
+                    <div class="privilege-item">
+                        <i class="fas fa-check-circle privilege-icon success"></i>
+                        <div class="privilege-info">
+                            <h4>View All Data</h4>
+                            <p>Access to all student and system data</p>
+                        </div>
+                    </div>
+
+                    <div class="privilege-item">
+                        <i class="fas fa-check-circle privilege-icon success"></i>
+                        <div class="privilege-info">
+                            <h4>System Configuration</h4>
+                            <p>Modify system settings and preferences</p>
+                        </div>
+                    </div>
+
+                    <div class="privilege-item">
+                        <i class="fas fa-check-circle privilege-icon success"></i>
+                        <div class="privilege-info">
+                            <h4>Audit Logs</h4>
+                            <p>View complete system audit trails</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Confirm Modal -->
+    <div class="modal" id="confirmModal" onclick="closeModalOnOverlay(event, 'confirmModal')">
+        <div class="modal-content modal-small" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 id="confirmTitle">Save Changes?</h3>
+                <button class="modal-close-btn" onclick="closeConfirm()" aria-label="Close modal" type="button">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="confirm-icon-wrapper warning" id="confirmIconWrapper">
+                    <i class="fas fa-exclamation-triangle" id="confirmIcon"></i>
+                </div>
+                <h3 id="confirmMessage">Are you sure you want to save these changes to your profile?</h3>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeConfirm()" class="btn btn-secondary" type="button">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button onclick="executeConfirm()" id="confirmYesBtn" class="btn btn-primary" type="button">
+                    <i class="fas fa-check"></i> Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="profile.js"></script>
+    <script src="top-header.js"></script>
+</body>
+</html>

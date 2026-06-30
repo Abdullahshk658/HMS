@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requests | SmartDormX Admin</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- SheetJS for Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="top-header.css">
+    <link rel="stylesheet" href="requests.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- ========== TOP HEADER ========== -->
+  <header class="top-header" role="banner">
+    <div class="header-left">
+        <!-- Menu Toggle Button (Top Left) -->
+        <button class="menu-toggle-btn" id="menuToggle" onclick="toggleSidebar()" aria-label="Open sidebar menu" title="Toggle Sidebar" type="button">
+            <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+        
+        <!-- Logo Section -->
+        <div class="logo-section">
+            
+    
+            <div class="logo-text">
+                <h1>SmartDormX</h1>
+                <span>Admin Portal</span>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="header-right">
+        <!-- Profile Section -->
+        <div class="profile-wrapper" onclick="toggleProfileDropdown()" role="button" tabindex="0" aria-haspopup="true" aria-expanded="false" aria-label="User profile menu">
+            <div class="profile-info">
+                <span class="profile-name" id="adminName">Nabeel Ashraf</span>
+                <span class="profile-role" id="adminRole">Administrator</span>
+            </div>
+            <div class="profile-avatar" id="adminAvatar" aria-hidden="true">NA</div>
+            <i class="fas fa-chevron-down profile-arrow" id="profileArrow" aria-hidden="true"></i>
+        </div>
+        
+        <!-- Profile Dropdown -->
+        <div class="profile-dropdown" id="profileDropdown" role="menu" aria-label="Profile options">
+            <a href="profile.html" class="dropdown-link" role="menuitem">
+                <i class="fas fa-user" aria-hidden="true"></i> My Profile
+            </a>
+            <hr class="dropdown-divider">
+            <a href="sign-in.html" class="dropdown-link logout" onclick="handleLogout(event)" role="menuitem">
+                <i class="fas fa-right-from-bracket" aria-hidden="true"></i> Logout
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- ========== SIDEBAR ========== -->
+<aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="sidebar-top">
+        <div class="sidebar-brand">
+            <div class="sidebar-brand-icon" aria-hidden="true">
+                <i class="fa">SmartDorm -------</i>
+            </div>
+           
+        </div>
+        <!-- Close Button (Cross Icon) -->
+        <button class="sidebar-close-btn" onclick="toggleSidebar()" aria-label="Close sidebar menu" type="button">
+            <i class="fas fa-xmark" aria-hidden="true"></i>
+        </button>
+    </div>
+    
+    <nav class="sidebar-menu" role="navigation">
+        <a href="dashboard.html" class="nav-link " aria-current="page">
+            <i class="fas fa-house" aria-hidden="true"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="residents.html" class="nav-link">
+            <i class="fas fa-users" aria-hidden="true"></i>
+            <span>Residents</span>
+        </a>
+        <a href="alertslogs.html" class="nav-link">
+            <i class="fas fa-tower-broadcast" aria-hidden="true"></i>
+            <span>Live TV</span>
+        </a>
+        <a href="announcements.html" class="nav-link">
+            <i class="fas fa-bullhorn" aria-hidden="true"></i>         
+            <span>Announcements</span>
+        </a>
+        <a href="mess.html" class="nav-link">
+            <i class="fas fa-utensils" aria-hidden="true"></i> 
+          
+          <span>Mess & Dining</span>
+        </a>
+        <a href="payments.html" class="nav-link">
+            <i class="fas fa-credit-card" aria-hidden="true"></i>
+            <span>Payments</span>
+        </a>
+        <a href="requests.html" class="nav-link active">
+            <i class="fas fa-clipboard-list" aria-hidden="true"></i>
+            <span>Requests</span>
+        </a>
+        <a href="profile.html" class="nav-link">
+            <i class="fas fa-circle-user" aria-hidden="true"></i>
+            <span>My Profile</span>
+        </a>
+    </nav>
+    
+    <div class="sidebar-bottom">
+        <a href="sign-in.html" class="logout-link" onclick="handleLogout(event)">
+            <i class="fas fa-right-from-bracket" aria-hidden="true"></i>
+            <span>Logout</span>
+        </a>
+    </div>
+</aside>
+
+<!-- ========== OVERLAY (Click Outside to Close Sidebar) ========== -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()" aria-hidden="true"></div>
+
+
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="main-content">
+        <div class="content-container">
+            
+            <div class="page-header">
+                <h1><i class="fas fa-clipboard-list"></i> Applications & Complaints</h1>
+                <p>Manage and track student requests</p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs-wrapper">
+                <div class="tabs-container">
+                    <button class="tab-btn active" onclick="switchTab('pending')">
+                        <i class="fas fa-clock"></i> Pending <span class="tab-badge" id="pendingBadge">0</span>
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('processed')">
+                        <i class="fas fa-check-circle"></i> Processed <span class="tab-badge" id="processedBadge">0</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- PENDING SECTION -->
+            <div id="pendingSection" class="tab-section active">
+                <!-- Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card complaints">
+                        <div class="stat-icon red"><i class="fas fa-exclamation-circle"></i></div>
+                        <div class="stat-info"><h3 id="totalComplaints">0</h3><p>Total Complaints</p></div>
+                    </div>
+                    <div class="stat-card applications">
+                        <div class="stat-icon blue"><i class="fas fa-file-alt"></i></div>
+                        <div class="stat-info"><h3 id="totalApplications">0</h3><p>Total Applications</p></div>
+                    </div>
+                    <div class="stat-card high">
+                        <div class="stat-icon red"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="stat-info"><h3 id="highCount">0</h3><p>High Priority</p></div>
+                    </div>
+                    <div class="stat-card medium">
+                        <div class="stat-icon orange"><i class="fas fa-exclamation-circle"></i></div>
+                        <div class="stat-info"><h3 id="mediumCount">0</h3><p>Medium Priority</p></div>
+                    </div>
+                    <div class="stat-card low">
+                        <div class="stat-icon green"><i class="fas fa-info-circle"></i></div>
+                        <div class="stat-info"><h3 id="lowCount">0</h3><p>Low Priority</p></div>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="filters-container">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search by name, roll no, or subject..." oninput="filterRequests()">
+                    </div>
+                    <div class="filter-group">
+                        <select id="typeFilter" onchange="filterRequests()">
+                            <option value="">All Types</option>
+                            <option value="complaint">Complaint</option>
+                            <option value="application">Application</option>
+                        </select>
+                        <select id="severityFilter" onchange="filterRequests()">
+                            <option value="">All Severities</option>
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                        <button class="btn btn-secondary" onclick="resetFilters()"><i class="fas fa-undo"></i> Reset</button>
+                    </div>
+                </div>
+
+                <!-- List -->
+                <div id="requestsList" class="requests-list"></div>
+                <div id="emptyState" class="empty-state" style="display:none">
+                    <i class="fas fa-clipboard-check"></i>
+                    <h3>All Caught Up!</h3>
+                    <p>No pending requests</p>
+                </div>
+            </div>
+
+            <!-- PROCESSED SECTION -->
+            <div id="processedSection" class="tab-section">
+                <div class="filters-container">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="processedSearchInput" placeholder="Search processed requests..." oninput="filterProcessed()">
+                    </div>
+                    <div class="filter-group">
+                        <select id="resolutionFilter" onchange="filterProcessed()">
+                            <option value="">All Status</option>
+                            <option value="resolved">Resolved</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                        <!-- 🆕 MONTH INPUT FIELD -->
+                        <input type="month" id="monthFilter" onchange="filterProcessed()" title="Filter by month">
+                        <button class="btn btn-secondary" onclick="resetProcessedFilters()"><i class="fas fa-undo"></i> Reset</button>
+                        <button class="btn btn-success" onclick="exportToExcel()"><i class="fas fa-file-excel"></i> Export Report</button>
+                    </div>
+                </div>
+                <div id="processedList" class="requests-list"></div>
+                <div id="processedEmptyState" class="empty-state" style="display:none">
+                    <i class="fas fa-history"></i>
+                    <h3>No Processed Requests</h3>
+                    <p>Resolved and rejected requests will appear here</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- DETAIL MODAL -->
+    <div class="modal" id="detailModal">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h3><i class="fas fa-clipboard-list"></i> Request Details</h3>
+                <button class="modal-close" onclick="closeModal('detailModal')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="detailModalBody"></div>
+            <div class="modal-footer" id="actionFooter">
+                <button class="btn btn-secondary" onclick="closeModal('detailModal')">Close</button>
+                <button class="btn btn-success" onclick="showConfirmModal('resolved')"><i class="fas fa-check-circle"></i> Mark Resolved</button>
+                <button class="btn btn-danger" onclick="showConfirmModal('rejected')"><i class="fas fa-times-circle"></i> Reject</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONFIRMATION MODAL -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+                <h3 id="confirmTitle">Confirm Action</h3>
+                <button class="modal-close" onclick="closeModal('confirmModal')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage">Are you sure?</p>
+                <div class="form-group">
+                    <label>Reason / Notes <span style="color:var(--danger)">*</span></label>
+                    <textarea id="resolutionNote" class="form-control" rows="3" placeholder="Enter reason (required)..."></textarea>
+                    <small id="noteError" style="color:var(--danger); display:none;">Reason is required</small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('confirmModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="executeAction()">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Supabase JS Client (v2) -->
+<script src="supabase-proxy.js"></script>
+
+<!-- Supabase Config -->
+<script src="supabase-config.js"></script>
+
+<!-- Supabase Helpers -->
+<script src="supabase-helpers.js"></script>
+
+<!-- Your existing scripts -->
+<script src="requests.js"></script>
+<script src="top-header.js"></script>
+</body>
+</html>

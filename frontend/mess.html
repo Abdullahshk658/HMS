@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mess & Dining – SmartDormX Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="mess.css"/>
+    <link rel="stylesheet" href="top-header.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ========== TOP HEADER ========== -->
+    <header class="top-header" role="banner">
+        <div class="header-left">
+            <!-- Menu Toggle Button (Top Left) -->
+            <button class="menu-toggle-btn" id="menuToggle" onclick="toggleSidebar()" aria-label="Open sidebar menu" title="Toggle Sidebar" type="button">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+            
+            <!-- Logo Section -->
+            <div class="logo-section">
+                
+        
+                <div class="logo-text">
+                    <h1>SmartDormX</h1>
+                    <span>Admin Portal</span>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="header-right">
+            <!-- Profile Section -->
+            <div class="profile-wrapper" onclick="toggleProfileDropdown()" role="button" tabindex="0" aria-haspopup="true" aria-expanded="false" aria-label="User profile menu">
+                <div class="profile-info">
+                    <span class="profile-name" id="adminName">Nabeel Ashraf</span>
+                    <span class="profile-role" id="adminRole">Administrator</span>
+                </div>
+                <div class="profile-avatar" id="adminAvatar" aria-hidden="true">NA</div>
+                <i class="fas fa-chevron-down profile-arrow" id="profileArrow" aria-hidden="true"></i>
+            </div>
+            
+            <!-- Profile Dropdown -->
+            <div class="profile-dropdown" id="profileDropdown" role="menu" aria-label="Profile options">
+                <a href="profile.html" class="dropdown-link" role="menuitem">
+                    <i class="fas fa-user" aria-hidden="true"></i> My Profile
+                </a>
+                <hr class="dropdown-divider">
+                <a href="sign-in.html" class="dropdown-link logout" onclick="handleLogout(event)" role="menuitem">
+                    <i class="fas fa-right-from-bracket" aria-hidden="true"></i> Logout
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== SIDEBAR ========== -->
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+        <div class="sidebar-top">
+            <div class="sidebar-brand">
+                <div class="sidebar-brand-icon" aria-hidden="true">
+                    <i class="fa">SmartDorm -------</i>
+                </div>
+               
+            </div>
+            <!-- Close Button (Cross Icon) -->
+            <button class="sidebar-close-btn" onclick="toggleSidebar()" aria-label="Close sidebar menu" type="button">
+                <i class="fas fa-xmark" aria-hidden="true"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-menu" role="navigation">
+            <a href="dashboard.html" class="nav-link " aria-current="page">
+                <i class="fas fa-house" aria-hidden="true"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="residents.html" class="nav-link">
+                <i class="fas fa-users" aria-hidden="true"></i>
+                <span>Residents</span>
+            </a>
+            <a href="alertslogs.html" class="nav-link">
+                <i class="fas fa-tower-broadcast" aria-hidden="true"></i>
+                <span>Live TV</span>
+            </a>
+            <a href="announcements.html" class="nav-link">
+                <i class="fas fa-bullhorn" aria-hidden="true"></i>         
+                <span>Announcements</span>
+            </a>
+            <a href="mess.html" class="nav-link active">
+                <i class="fas fa-utensils" aria-hidden="true"></i> 
+              
+              <span>Mess & Dining</span>
+            </a>
+            <a href="payments.html" class="nav-link">
+                <i class="fas fa-credit-card" aria-hidden="true"></i>
+                <span>Payments</span>
+            </a>
+            <a href="requests.html" class="nav-link">
+                <i class="fas fa-clipboard-list" aria-hidden="true"></i>
+                <span>Requests</span>
+            </a>
+            <a href="profile.html" class="nav-link">
+                <i class="fas fa-circle-user" aria-hidden="true"></i>
+                <span>My Profile</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-bottom">
+            <a href="sign-in.html" class="logout-link" onclick="handleLogout(event)">
+                <i class="fas fa-right-from-bracket" aria-hidden="true"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- ========== OVERLAY (Click Outside to Close Sidebar) ========== -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()" aria-hidden="true"></div>
+
+
+<!-- MAIN -->
+<main class="main-content">
+
+    <div class="page-title">
+        <h2><i class="fas fa-utensils"></i> Mess &amp; Dining</h2>
+        <p>Manage student meals, attendance, menu and feedback.</p>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs-container">
+        <button class="tab-btn active" onclick="switchTab('overview')"><i class="fas fa-home"></i> Overview</button>
+        <button class="tab-btn" onclick="switchTab('attendance')"><i class="fas fa-clipboard-list"></i> Attendance</button>
+        <button class="tab-btn" onclick="switchTab('feedback')"><i class="fas fa-comments"></i> Feedback</button>
+    </div>
+
+    <!-- OVERVIEW TAB -->
+    <div id="overview" class="tab-content active">
+        <!-- Meal Count Cards -->
+        <div class="meal-cards-grid">
+            <div class="meal-card breakfast">
+                <div class="meal-icon"><i class="fas fa-egg"></i></div>
+                <div class="meal-label">Breakfast</div>
+                <div class="meal-count" id="cntBreakfast">0</div>
+                <div class="meal-sub">students coming today</div>
+            </div>
+            <div class="meal-card lunch">
+                <div class="meal-icon"><i class="fas fa-bowl-food"></i></div>
+                <div class="meal-label">Lunch</div>
+                <div class="meal-count" id="cntLunch">0</div>
+                <div class="meal-sub">students coming today</div>
+            </div>
+            <div class="meal-card dinner">
+                <div class="meal-icon"><i class="fas fa-moon"></i></div>
+                <div class="meal-label">Dinner</div>
+                <div class="meal-count" id="cntDinner">0</div>
+                <div class="meal-sub">students coming today</div>
+            </div>
+        </div>
+
+        <!-- Weekly Menu Section -->
+        <div class="menu-section">
+            <div class="section-title"><i class="fas fa-calendar-week"></i> Weekly Menu</div>
+            <div class="card">
+                <div class="card-header" style="justify-content:space-between;">
+                    <span class="card-title"><i class="fas fa-utensils"></i> Manage Menu Items</span>
+                    <button class="btn btn-success" onclick="showSaveMenuModal()">
+                        <i class="fas fa-save"></i> Save Menu
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="day-selector" id="daySelector"></div>
+                    <div class="meal-type-tabs">
+                        <button class="meal-type-tab breakfast active" onclick="switchMealType('breakfast')">
+                            <i class="fas fa-egg"></i> Breakfast
+                        </button>
+                        <button class="meal-type-tab lunch" onclick="switchMealType('lunch')">
+                            <i class="fas fa-sun"></i> Lunch
+                        </button>
+                        <button class="meal-type-tab dinner" onclick="switchMealType('dinner')">
+                            <i class="fas fa-moon"></i> Dinner
+                        </button>
+                    </div>
+                    <div class="menu-items-list" id="menuItemsList"></div>
+                    <div class="add-item-form">
+                        <input type="text" id="newDishName" placeholder="Enter dish name..." />
+                        <input type="number" id="newDishPrice" placeholder="Price (Rs.)" min="0" step="10" />
+                        <button class="btn btn-primary" onclick="addDishItem()"><i class="fas fa-plus"></i> Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Feedback Section -->
+        <div class="feedback-section">
+            <div class="feedback-header">
+                <div class="section-title"><i class="fas fa-star"></i> Recent Feedback</div>
+                <button class="btn btn-outline" onclick="switchTab('feedback')"><i class="fas fa-list"></i> View All</button>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="feedback-list" id="recentFeedbackList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ATTENDANCE TAB -->
+    <div id="attendance" class="tab-content">
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title"><i class="fas fa-table"></i> Meal Attendance Records</span>
+                <button class="btn btn-success" onclick="exportData()"><i class="fas fa-file-export"></i> Export</button>
+            </div>
+            <div class="card-body">
+                <!-- Single-line Filters -->
+                <div class="filters-container">
+                    <div class="filter-group search-group">
+                        <label>Search Student</label>
+                        <div class="search-wrapper">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Name or Reg. No..." oninput="applyFilters()" />
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label>Month</label>
+                        <input type="month" id="filterMonth" value="2025-04" onchange="applyFilters()" />
+                    </div>
+                    <div class="filter-group">
+                        <label>Status</label>
+                        <select id="filterStatus" onchange="applyFilters()">
+                            <option value="">All</option>
+                            <option value="Paid">Paid</option>
+                            <option value="Unpaid">Unpaid</option>
+                        </select>
+                    </div>
+                    <div class="filter-group" style="flex:0;align-self:flex-end;">
+                        <label>&nbsp;</label>
+                        <button class="btn-reset" onclick="resetFilters()"><i class="fas fa-rotate-left"></i> Reset</button>
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <table id="messTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Student</th>
+                                <th>Reg. No.</th>
+                                <th>Hostel</th>
+                                <th>Meal</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody"></tbody>
+                    </table>
+                </div>
+                <div class="pagination-row">
+                    <div class="pagination-info" id="paginationInfo"></div>
+                    <div class="pagination-btns" id="paginationBtns"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FEEDBACK TAB -->
+    <div id="feedback" class="tab-content">
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title"><i class="fas fa-comments"></i> All Feedback</span>
+                <button class="btn btn-danger" onclick="clearAllFeedback()"><i class="fas fa-trash"></i> Clear All</button>
+            </div>
+            <div class="card-body">
+                <div class="feedback-list" id="allFeedbackList"></div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<!-- CUSTOM CONFIRM MODAL -->
+<div class="custom-modal" id="customModal">
+    <div class="custom-modal-content">
+        <button class="custom-modal-close" onclick="closeCustomModal()"><i class="fas fa-times"></i></button>
+        <div class="custom-modal-icon" id="modalIcon">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <h3 class="custom-modal-title" id="modalTitle">Confirm Action</h3>
+        <p class="custom-modal-message" id="modalMessage">Are you sure you want to proceed?</p>
+        <div class="custom-modal-actions">
+            <button class="btn btn-outline" onclick="closeCustomModal()">Cancel</button>
+            <button class="btn btn-danger" id="modalConfirmBtn" onclick="confirmCustomAction()">Confirm</button>
+        </div>
+    </div>
+</div>
+
+<!-- SAVE MENU CONFIRMATION MODAL -->
+<div class="modal" id="saveMenuModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <i class="fas fa-check-circle"></i>
+            <h3>Save Weekly Menu</h3>
+            <p>Are you sure you want to save this week's menu? This will update the menu for all students.</p>
+        </div>
+        <div class="modal-actions">
+            <button class="btn btn-outline" onclick="closeSaveMenuModal()">Cancel</button>
+            <button class="btn btn-success" onclick="confirmSaveMenu()"><i class="fas fa-check"></i> Yes, Save Menu</button>
+        </div>
+    </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+
+<!-- Supabase JS Client (v2) -->
+<script src="supabase-proxy.js"></script>
+
+<!-- Supabase Config -->
+<script src="supabase-config.js"></script>
+
+<!-- Supabase Helpers -->
+<script src="supabase-helpers.js"></script>
+
+<!-- Your existing scripts -->
+<script src="mess.js"></script>
+<script src="top-header.js"></script>
+</body>
+</html>

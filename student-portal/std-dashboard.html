@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartDormX - Student Dashboard</title>
+  
+  <!-- External Libraries -->
+  <link rel="stylesheet" href="../frontend/theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="header-slidebar.css">
+  <link rel="stylesheet" href="std-dashboard.css">
+    <link rel="stylesheet" href="student-portal.css"/>
+</head>
+<body>
+
+
+<!-- Overlay -->
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- ═══════════════════════════════════════════
+     TOP HEADER
+     ═══════════════════════════════════════════ -->
+<header class="top-header">
+  <div class="header-left">
+    <!-- Hamburger Menu Trigger -->
+    <button class="menu-trigger" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Logo Section -->
+    <div class="logo-section">
+      <div class="logo-text">
+        <h1>Fachhochschule</h1>
+        <span>Student Portal</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="header-right">
+    <!-- Profile Section -->
+    <button class="header-profile-section" onclick="toggleProfileDropdown()">
+      <div class="header-profile-info">
+        <span class="header-profile-name" id="headerName">Fahad Ali</span>
+        <span class="header-profile-role" id="headerRole">B22F0403CS046</span>
+      </div>
+      <div class="header-profile-avatar" id="headerAvatar">FA</div>
+      <i class="fas fa-chevron-down profile-arrow" id="profileArrow"></i>
+    </button>
+    
+    <!-- Profile Dropdown Menu -->
+    <div class="profile-dropdown" id="profileDropdown">
+      <a href="std-profile.html" class="dropdown-item">
+        <i class="fas fa-user"></i> My Profile
+      </a>
+      <div class="dropdown-divider"></div>
+      <a href="sign-in.html" class="dropdown-item logout">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+    </div>
+  </div>
+</header>
+</header>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  
+  <!-- Sidebar Header with Close Icon -->
+  <div class="sidebar-header"><i>SmartDorm ----</i>
+    <!-- Close Button (X) - LEFT SIDE -->
+    <button class="sidebar-close" onclick="closeSidebar()">
+      <i class="fas fa-times"></i>
+    </button>
+    
+    <!-- Right side content (optional - could be logo or text) -->
+    <div class="sidebar-header-right">
+      <div class="logo-indicator"></div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a href="std-dashboard.html" class="nav-item active">
+      <i class="fas fa-home"></i> <span>Dashboard</span>
+    </a>
+    <a href="std-room.html" class="nav-item">
+      <i class="fas fa-bed"></i> <span>My Room</span>
+    </a>
+    <a href="std-mess.html" class="nav-item">
+      <i class="fas fa-utensils"></i> <span>Mess & Dining</span>
+    </a>
+    <a href="std-fee.html" class="nav-item">
+      <i class="fas fa-file-invoice-dollar"></i> <span>My Fee</span>
+    </a>
+    <a href="std-requests.html" class="nav-item">
+      <i class="fas fa-clipboard-check"></i> <span>Requests</span>
+    </a>
+    <a href="std-notifications.html" class="nav-item">
+      <i class="fas fa-bell"></i> <span>Notifications</span>
+    </a>
+    <a href="std-profile.html" class="nav-item">
+      <i class="fas fa-user-circle"></i> <span>My Profile</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <a href="sign-in.html" class="logout-btn">
+      <i class="fas fa-right-from-bracket"></i> <span>Logout</span>
+    </a>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main-wrapper">
+  
+  <!-- Page Title Section -->
+  <div class="page-title-section">
+    <div class="page-icon-wrapper">
+      <i class="fas fa-home"></i>
+    </div>
+    <div class="page-title-content">
+      <h1 class="page-title" id="dashboardName">Welcome to SmartDormX</h1>
+      <p class="page-subtitle">Manage your hostel life, meals, fees, and requests in one place</p>
+    </div>
+  </div>
+
+  <!-- Metrics Grid -->
+  <div class="metrics-grid">
+    <div class="metric-card sky-border">
+      <div class="metric-icon"><i class="fas fa-hotel"></i></div>
+      <div class="metric-data">
+        <span class="metric-label">Hostel Unit</span>
+        <h3 class="metric-value" id="hostelUnit">C</h3>
+      </div>
+    </div>
+    
+    <div class="metric-card emerald-border">
+      <div class="metric-icon"><i class="fas fa-door-open"></i></div>
+      <div class="metric-data">
+        <span class="metric-label">Room Number</span>
+        <h3 class="metric-value" id="roomNumber">CF-225</h3>
+      </div>
+    </div>
+    
+    <div class="metric-card amber-border">
+      <div class="metric-icon"><i class="fas fa-calendar-check"></i></div>
+      <div class="metric-data">
+        <span class="metric-label">Monthly Attendance</span>
+        <h3 class="metric-value" id="attendancePercent">92%</h3>
+      </div>
+    </div>
+    
+    <div class="metric-card violet-border">
+      <div class="metric-icon"><i class="fas fa-user-shield"></i></div>
+      <div class="metric-data">
+        <span class="metric-label">Account Status</span>
+        <h3 class="metric-value">
+          <span id="accountStatus">Active</span>
+          <span id="verifiedBadge" class="verified-badge hidden">
+            <i class="fas fa-check"></i> Verified
+          </span>
+        </h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- Meal Attendance Section -->
+  <div class="section-card">
+    <h3 class="section-title">
+      <i class="fas fa-bell"></i> Meal Attendance
+    </h3>
+    <p class="section-subtitle">Mark your availability for today's meals.</p>
+    
+    <div class="meal-row">
+      <div class="meal-info">
+        <i class="fas fa-mug-hot"></i>
+        <span>Breakfast (07:00 - 09:00)</span>
+      </div>
+      <div class="toggle-group" role="group" aria-label="Breakfast attendance">
+        <button class="toggle-btn active" data-meal="breakfast" data-status="coming" aria-pressed="true">
+          Coming
+        </button>
+        <button class="toggle-btn" data-meal="breakfast" data-status="skip" aria-pressed="false">
+          Skip
+        </button>
+      </div>
+    </div>
+    
+    <div class="meal-row">
+      <div class="meal-info">
+        <i class="fas fa-utensils"></i>
+        <span>Lunch (13:00 - 15:00)</span>
+      </div>
+      <div class="toggle-group" role="group" aria-label="Lunch attendance">
+        <button class="toggle-btn active" data-meal="lunch" data-status="coming" aria-pressed="true">
+          Coming
+        </button>
+        <button class="toggle-btn" data-meal="lunch" data-status="skip" aria-pressed="false">
+          Skip
+        </button>
+      </div>
+    </div>
+    
+    <div class="meal-row">
+      <div class="meal-info">
+        <i class="fas fa-moon"></i>
+        <span>Dinner (20:00 - 22:00)</span>
+      </div>
+      <div class="toggle-group" role="group" aria-label="Dinner attendance">
+        <button class="toggle-btn active" data-meal="dinner" data-status="coming" aria-pressed="true">
+          Coming
+        </button>
+        <button class="toggle-btn" data-meal="dinner" data-status="skip" aria-pressed="false">
+          Skip
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Today's Menu Section -->
+  <div class="section-card">
+    <h3 class="section-title">
+      <i class="fas fa-egg"></i> Today's Menu
+    </h3>
+    <p class="section-subtitle">What's cooking for you today.</p>
+    
+    <div class="menu-grid">
+      <div class="menu-card menu-breakfast">
+        <div class="menu-icon"><i class="fas fa-mug-hot"></i></div>
+        <div class="time">Breakfast</div>
+        <p class="dish">Omelette Paratha + Tea</p>
+        <div class="menu-time">07:00 - 09:00 AM</div>
+      </div>
+      
+      <div class="menu-card menu-lunch">
+        <div class="menu-icon"><i class="fas fa-utensils"></i></div>
+        <div class="time">Lunch</div>
+        <p class="dish">Chicken Biryani + Raita</p>
+        <div class="menu-time">01:00 - 03:00 PM</div>
+      </div>
+      
+      <div class="menu-card menu-dinner">
+        <div class="menu-icon"><i class="fas fa-moon"></i></div>
+        <div class="time">Dinner</div>
+        <p class="dish">Aloo Gosht + Fresh Roti</p>
+        <div class="menu-time">08:00 - 10:00 PM</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Usage Trends Chart -->
+  <div class="section-card">
+    <div class="chart-header">
+      <div>
+        <h3 class="section-title">
+          <i class="fas fa-chart-area"></i> Usage Trends
+        </h3>
+        <p class="section-subtitle" style="margin:0;">Your meal attendance history.</p>
+      </div>
+      <div class="chart-controls">
+        <button class="chart-btn active" id="btnLastMonth" onclick="updateChart('lastMonth')">
+          Month
+        </button>
+        <button class="chart-btn" id="btnLastSemester" onclick="updateChart('lastSemester')">
+          Semester
+        </button>
+      </div>
+    </div>
+    <div class="chart-container">
+      <canvas id="usageGraph"></canvas>
+    </div>
+  </div>
+
+</main>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+<!-- Scripts -->
+<!-- 1. Supabase JS Library (v2) -->
+<script src="supabase-proxy.js"></script>
+<!-- 2. Config & helpers File -->
+<script src="supabase-config.js"></script>
+<script src="supabase-helpers.js"></script>
+<!-- 3. Existing scripts -->
+<script src="header-slidebar.js"></script>
+<script src="std-dashboard.js"></script>
+</body>
+</html>

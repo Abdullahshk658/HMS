@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual Environment
+fr_env_new/
+venv/
+env/
+.env
+
+# Database
+backend/database.db
+
+# Uploaded Images (personal/biometric data)
+backend/images/
+backend/bulk_upload/
+
+# Environment Variables
+.env
+*.env
+
+# VS Code
+.vscode/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Supabase Keys (never commit these)
+*supabase-config.js
+
+# Logs
+*.log

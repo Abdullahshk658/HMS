@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Hostel Management System</title>
+
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='alerts.css') }}?v=6">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <header class="header">
+        <h1>🏠 Smart Hostel Management System</h1>
+
+        <div class="stats">
+            <span id="stat-users">Users: 0</span>
+            <span id="stat-images">Images: 0</span>
+            <span id="stat-logs">Logs: 0</span>
+            <span id="stat-anomalies">Anomalies: 0</span>
+        </div>
+    </header>
+
+    <!-- Tab Navigation -->
+    <nav class="tab-nav">
+        <button type="button" id="btn-alerts" class="tab-btn active" onclick="switchTab('alerts')">
+            📋 Alerts & Live Feed
+        </button>
+
+        <button type="button" id="btn-students" class="tab-btn" onclick="switchTab('students')">
+            👥 Registered Students
+        </button>
+    </nav>
+
+    <!-- ALERTS TAB -->
+    <div id="tab-alerts" class="tab-content active">
+        <div class="content">
+
+            <!-- Left Panel: Video Feed -->
+            <div class="panel video-panel">
+                <h2>📹 Live Camera Feed</h2>
+
+                <div class="video-container">
+                    <img id="videoFeed" src="/video_feed" alt="Camera Feed">
+                </div>
+
+                <p class="status" id="feedStatus">🟢 Connected</p>
+
+                <!-- Add User Form -->
+                <div class="form-section">
+                    <h2>➕ Add Student / Add More Images</h2>
+
+                    <div class="form-group">
+                        <label for="name">Student Name:</label>
+                        <input type="text" id="name" name="name" placeholder="Enter student name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="images">Photos:</label>
+                        <input type="file" id="images" name="images" accept="image/*" multiple>
+                        <small class="hint">
+                            You can select multiple photos of the same student.
+                        </small>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" onclick="addUser()">
+                        Add Student / Images
+                    </button>
+
+                    <div id="formMessage" class="message"></div>
+                </div>
+
+                <!-- CSV Bulk Import -->
+                <div class="form-section csv-section">
+                    <h2>📦 Bulk Import Students</h2>
+
+                    <p class="csv-info">
+                        CSV format: <strong>name,image</strong><br>
+                        Images must be inside <strong>backend/bulk_upload/</strong>
+                    </p>
+
+                    <div class="form-group">
+                        <label for="csvFile">CSV File:</label>
+                        <input type="file" id="csvFile" accept=".csv">
+                    </div>
+
+                    <button type="button" class="btn btn-secondary" onclick="importCsv()">
+                        Import CSV
+                    </button>
+
+                    <div id="csvMessage" class="message"></div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Logs -->
+            <div class="panel right-panel">
+
+                <div class="logs-header">
+                    <h2>📋 Activity Logs</h2>
+
+                    <button type="button" class="btn btn-small" onclick="loadLogs(true)">
+                        🔄 Refresh
+                    </button>
+                </div>
+
+                <!-- Filters -->
+                <div class="filters-section">
+
+                    <input
+                        type="text"
+                        id="filterName"
+                        placeholder="Filter by Name"
+                        class="filter-input"
+                    >
+
+                    <input
+                        type="text"
+                        id="filterTimestamp"
+                        placeholder="Filter by Date (YYYY-MM-DD)"
+                        class="filter-input"
+                    >
+
+                    <select id="filterStatus" class="filter-input">
+                        <option value="">All Status</option>
+                        <option value="Authorized">Authorized</option>
+                        <option value="Unauthorized">Unauthorized</option>
+                    </select>
+
+                    <select id="filterAnomaly" class="filter-input">
+                        <option value="">All Anomalies</option>
+                        <option value="1">Anomaly: Yes</option>
+                        <option value="0">Anomaly: No</option>
+                    </select>
+
+                    <button type="button" class="btn btn-filter" onclick="resetFilters()">
+                        Clear Filters
+                    </button>
+
+                </div>
+
+                <div class="logs-table-wrapper">
+                    <table class="logs-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Timestamp</th>
+                                <th>Status</th>
+                                <th>Match Score</th>
+                                <th>Anomaly</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="logsTable">
+                            <tr class="no-data-row">
+                                <td colspan="5" class="no-data">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- STUDENTS TAB -->
+    <div id="tab-students" class="tab-content">
+        <div class="panel students-panel">
+
+            <div class="students-header">
+                <h2>👥 Registered Students</h2>
+
+                <button type="button" class="btn btn-small" onclick="loadStudents(true)">
+                    🔄 Refresh
+                </button>
+            </div>
+
+            <div id="studentsGrid" class="students-grid">
+                <p class="no-data">Loading students...</p>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='alerts.js') }}?v=6"></script>
+
+</body>
+</html>

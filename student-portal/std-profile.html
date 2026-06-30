@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile | SmartDormX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../frontend/theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <link rel="stylesheet" href="header-slidebar.css">
+  <link rel="stylesheet" href="std-profile.css">
+    <link rel="stylesheet" href="student-portal.css"/>
+</head>
+<body>
+
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+
+<!-- Overlay -->
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- ═══════════════════════════════════════════
+     TOP HEADER
+     ═══════════════════════════════════════════ -->
+<header class="top-header">
+  <div class="header-left">
+    <!-- Hamburger Menu Trigger -->
+    <button class="menu-trigger" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Logo Section -->
+    <div class="logo-section">
+      <div class="logo-text">
+        <h1>Fachhochschule</h1>
+        <span>Student Portal</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="header-right">
+    <!-- Profile Section -->
+    <button class="header-profile-section" onclick="toggleProfileDropdown()">
+      <div class="header-profile-info">
+        <span class="header-profile-name" id="headerName">Fahad Ali</span>
+        <span class="header-profile-role" id="headerRole">B22F0403CS046</span>
+      </div>
+      <div class="header-profile-avatar" id="headerAvatar">FA</div>
+      <i class="fas fa-chevron-down profile-arrow" id="profileArrow"></i>
+    </button>
+    
+    <!-- Profile Dropdown Menu -->
+    <div class="profile-dropdown" id="profileDropdown">
+      <a href="std-profile.html" class="dropdown-item">
+        <i class="fas fa-user"></i> My Profile
+      </a>
+      <div class="dropdown-divider"></div>
+      <a href="sign-in.html" class="dropdown-item logout">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+    </div>
+  </div>
+</header>
+</header>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  
+  <!-- Sidebar Header with Close Icon -->
+  <div class="sidebar-header"><i>SmartDorm ----</i>
+    <!-- Close Button (X) - LEFT SIDE -->
+    <button class="sidebar-close" onclick="closeSidebar()">
+      <i class="fas fa-times"></i>
+    </button>
+    
+    <!-- Right side content (optional - could be logo or text) -->
+    <div class="sidebar-header-right">
+      <div class="logo-indicator"></div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a href="std-dashboard.html" class="nav-item">
+      <i class="fas fa-home"></i> <span>Dashboard</span>
+    </a>
+    <a href="std-room.html" class="nav-item">
+      <i class="fas fa-bed"></i> <span>My Room</span>
+    </a>
+    <a href="std-mess.html" class="nav-item">
+      <i class="fas fa-utensils"></i> <span>Mess & Dining</span>
+    </a>
+    <a href="std-fee.html" class="nav-item">
+      <i class="fas fa-file-invoice-dollar"></i> <span>My Fee</span>
+    </a>
+    <a href="std-requests.html" class="nav-item">
+      <i class="fas fa-clipboard-check"></i> <span>Requests</span>
+    </a>
+    <a href="std-notifications.html" class="nav-item">
+      <i class="fas fa-bell"></i> <span>Notifications</span>
+    </a>
+    <a href="std-profile.html" class="nav-item active">
+      <i class="fas fa-user-circle"></i> <span>My Profile</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <a href="sign-in.html" class="logout-btn">
+      <i class="fas fa-right-from-bracket"></i> <span>Logout</span>
+    </a>
+  </div>
+</aside>>
+
+<div class="main-content">
+  <div class="profile-inner">
+    <div class="profile-header">
+      <h1><span class="header-icon-wrap"><ion-icon name="school-outline"></ion-icon></span>Student Profile</h1>
+      <p>Manage your personal information, security and preferences</p>
+    </div>
+    <div class="profile-layout">
+      <div class="avatar-section">
+        <div class="avatar-wrapper">
+          <img id="profileAvatar" class="avatar-img" src="https://ui-avatars.com/api/?background=3b82f6&color=fff&name=Fahad+Ali" alt="Avatar">
+          <div class="avatar-overlay"><ion-icon name="camera"></ion-icon></div>
+        </div>
+        <div class="avatar-icon-row">
+          <button class="icon-btn btn-change" id="changeAvatarBtn" title="Change Photo"><ion-icon name="camera-outline"></ion-icon></button>
+          <button class="icon-btn btn-remove" id="removeAvatarBtn" title="Remove Photo"><ion-icon name="trash-outline"></ion-icon></button>
+        </div>
+        <input type="file" id="avatarUpload" accept="image/*" hidden>
+        <div class="avatar-info"><ion-icon name="shield-checkmark-outline"></ion-icon>Visibility: <strong>Student</strong></div>
+      </div>
+      <div class="form-section">
+        <div class="form-grid">
+          <div class="input-field"><label>First Name <span class="required">*</span></label><input type="text" id="firstName" placeholder="e.g., Muhammad" minlength="3" maxlength="50" required><span class="error-msg">Enter first name (min 3 characters)</span></div>
+          <div class="input-field"><label>Last Name <span class="required">*</span></label><input type="text" id="lastName" placeholder="e.g., Ali Khan" minlength="3" maxlength="50" required><span class="error-msg">Enter last name (min 3 characters)</span></div>
+          <div class="input-field"><label>CNIC <span class="required">*</span></label><input type="text" id="cnic" placeholder="e.g., 35202-1234567-1" pattern="^\d{5}-\d{7}-\d{1}$" maxlength="15" required oninput="formatCNIC(this)"><span class="error-msg">Enter valid CNIC (format: XXXXX-XXXXXXX-X)</span><small class="field-hint">Format: 12345-1234567-1</small></div>
+          <div class="input-field"><label>Date of Birth</label><input type="date" id="dateOfBirth" placeholder="Select date" max="2010-12-31"></div>
+          <div class="input-field"><label>Phone Number <span class="required">*</span></label><input type="tel" id="phone" placeholder="e.g., 03001234567" minlength="10" maxlength="15" pattern="[0-9]+" required><span class="error-msg">Enter valid phone number (min 10 digits)</span></div>
+          <div class="input-field"><label>Email Address <span class="required">*</span></label><input type="email" id="email" placeholder="fahad.cs082@gmail.com" maxlength="100" required pattern="^[^@]+@gmail\.com$"><span class="error-msg">Enter valid Gmail address</span></div>
+          <div class="input-field"><label>Gender <span class="required">*</span></label><div class="select-wrapper"><select id="gender" required><option value="" disabled selected>Select Gender</option><option value="Male">Male</option><option value="Female">Female</option><option value="Other">Other</option></select><ion-icon name="chevron-down-outline" class="select-icon"></ion-icon></div><span class="error-msg">Select gender</span></div>
+          <div class="input-field"><label>Blood Group <span class="required">*</span></label><div class="select-wrapper"><select id="bloodGroup" required><option value="" disabled selected>Select Blood Group</option><option value="O+">O Positive (O+)</option><option value="O-">O Negative (O-)</option><option value="A+">A Positive (A+)</option><option value="A-">A Negative (A-)</option><option value="B+">B Positive (B+)</option><option value="B-">B Negative (B-)</option><option value="AB+">AB Positive (AB+)</option><option value="AB-">AB Negative (AB-)</option></select><ion-icon name="chevron-down-outline" class="select-icon"></ion-icon></div><span class="error-msg">Select blood group</span></div>
+          <div class="input-field"><label>Guardian Name <span class="required">*</span></label><input type="text" id="guardianName" placeholder="Father/Guardian full name" minlength="3" maxlength="100" required><span class="error-msg">Enter guardian name (min 3 characters)</span></div>
+          <div class="input-field"><label>Guardian Phone <span class="required">*</span></label><input type="tel" id="guardianPhone" placeholder="e.g., 03001234567" minlength="10" maxlength="15" pattern="[0-9]+" required><span class="error-msg">Enter valid phone number (min 10 digits)</span></div>
+          <div class="input-field"><label>Any Disability?</label><div class="select-wrapper"><select id="disability"><option value="No" selected>No</option><option value="Yes">Yes - Specify Below</option></select><ion-icon name="chevron-down-outline" class="select-icon"></ion-icon></div></div>
+          <div class="input-field" id="disabilitySpecField" style="display:none;"><label>Disability Details <span class="required">*</span></label><input type="text" id="disabilitySpec" placeholder="Brief description" maxlength="200"><span class="error-msg">Enter disability details</span></div>
+          <div class="input-field full-width"><label>Address <span class="required">*</span></label><input type="text" id="address" placeholder="House/Street/Area/City" minlength="10" maxlength="200" required><span class="error-msg">Enter complete address (min 10 characters)</span></div>
+          <div class="input-field"><label>City <span class="required">*</span></label><input type="text" id="city" placeholder="e.g., Lahore" minlength="2" maxlength="50" required><span class="error-msg">Enter city name</span></div>
+          <div class="input-field"><label>Postal Code <span class="required">*</span></label><input type="text" id="postalCode" placeholder="e.g., 54000" minlength="5" maxlength="5" pattern="[0-9]+" required><span class="error-msg">Enter valid postal code (5 digits)</span></div>
+          <div class="input-field country-field"><label>Country <span class="required">*</span></label><input type="text" id="country" placeholder="e.g., Pakistan" minlength="2" maxlength="50" required value="Pakistan"><span class="error-msg">Enter country name</span></div>
+          <div class="input-field"><label>Joining Date <span class="required">*</span></label><input type="date" id="joiningDate" required><span class="error-msg">Select joining date</span></div>
+        </div>
+        <div class="action-buttons">
+          <button id="saveChangesBtn" class="btn-primary"><ion-icon name="save-outline"></ion-icon> Save Changes</button>
+          <button id="discardBtn" class="btn-secondary"><ion-icon name="refresh-outline"></ion-icon> Discard</button>
+          <button id="changePasswordMainBtn" class="btn-secondary"><ion-icon name="key-outline"></ion-icon> Change Password</button>
+        </div>
+      </div>
+    </div>
+    <div class="audit-section">
+      <div class="audit-info">
+        <ion-icon name="time-outline"></ion-icon><span>Access Audit:</span>
+        <span id="lastUpdatedText" class="audit-badge">Last updated: Just now</span>
+        <span class="session-active"><ion-icon name="checkmark-circle"></ion-icon> Secure session active</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Password Modal -->
+<div id="passwordModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header"><h3><ion-icon name="lock-closed-outline"></ion-icon> Change Password</h3><button class="modal-close" id="closeModalBtn">&times;</button></div>
+    <div class="modal-body">
+      <input type="password" id="currentPwd" placeholder="Current password"><span class="password-error-msg" id="currentPwdError">Enter current password</span>
+      <input type="password" id="newPwd" placeholder="New password (min. 6 characters)">
+      <input type="password" id="confirmPwd" placeholder="Confirm new password"><span class="password-error-msg" id="confirmPwdError">Passwords do not match</span>
+      <div class="password-hint"><ion-icon name="information-circle-outline" style="cursor:pointer" title="Click for requirements"></ion-icon> Password requirements</div>
+    </div>
+    <div class="modal-footer">
+      <button id="closeModalBtn2" class="modal-btn-cancel">Cancel</button>
+      <button id="confirmPasswordBtn" class="modal-btn-update">Update Password</button>
+    </div>
+  </div>
+</div>
+
+<!-- 1. Supabase JS Library (v2) -->
+<script src="supabase-proxy.js"></script>
+<!-- 2. Config & helpers File -->
+<script src="supabase-config.js"></script>
+<script src="supabase-helpers.js"></script>
+<!-- 3. Existing scripts -->
+<script src="std-profile.js"></script>
+</body>
+</html>

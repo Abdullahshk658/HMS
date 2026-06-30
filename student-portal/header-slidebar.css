@@ -1,0 +1,405 @@
+/* ═══════════════════════════════════════════════
+   SmartDormX – Header & Sidebar Styles
+   File: header-sidebar.css
+   ═══════════════════════════════════════════════ */
+
+   *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f3f4f6;
+    min-height: 100vh;
+  }
+  
+  /* ── TOP HEADER (Fixed at Top) ─────────────────────── */
+  .top-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 64px;
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    z-index: 1000;
+  }
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  
+  .menu-trigger {
+    background: transparent;
+    border: none;
+    color: #6b7280;
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    transition: background .15s, color .15s;
+  }
+  .menu-trigger:hover {
+    background: #f9fafb;
+    color: #111827;
+  }
+  
+  .logo-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  
+  .logo-text h1 {
+    color: #111827;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .logo-text span {
+    color: #6b7280;
+    font-size: 11px;
+    display: block;
+  }
+  
+  /* ── HEADER RIGHT (Profile Section) ────────────────── */
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+  }
+  
+  .header-profile-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    transition: background .15s;
+  }
+  .header-profile-section:hover {
+    background: #f9fafb;
+  }
+  
+  .header-profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .header-profile-name {
+    color: #111827;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .header-profile-role {
+    color: #6b7280;
+    font-size: 11px;
+  }
+  
+  .header-profile-avatar {
+    width: 34px;
+    height: 34px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  
+  .profile-arrow {
+    color: #6b7280;
+    font-size: 10px;
+    transition: transform .2s;
+  }
+  .profile-arrow.open {
+    transform: rotate(180deg);
+  }
+  
+  /* ── PROFILE DROPDOWN ───────────────────────────────── */
+  .profile-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .12);
+    min-width: 210px;
+    border: 1px solid #e5e7eb;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity .15s, visibility .15s, transform .15s;
+    z-index: 1100;
+  }
+  .profile-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    color: #374151;
+    text-decoration: none;
+    font-size: 13px;
+    transition: background .12s;
+  }
+  .dropdown-item:first-child { border-radius: 10px 10px 0 0; }
+  .dropdown-item:last-child  { border-radius: 0 0 10px 10px; }
+  .dropdown-item:hover { background: #f9fafb; }
+  .dropdown-item i { width: 16px; text-align: center; }
+  .dropdown-item.logout { color: #dc2626; }
+  
+  .dropdown-divider {
+    margin: 4px 0;
+    border: none;
+    border-top: 1px solid #e5e7eb;
+  }
+  
+  /* ───────────────────────────────────────────────────
+     SIDEBAR STYLES
+     ─────────────────────────────────────────────────── */
+     
+  .sidebar {
+    position: fixed;
+    left: -280px; /* Hidden by default */
+    top: 64px; /* Starts below header */
+    bottom: 0;
+    width: 280px;
+    background: #fff;
+    border-right: 1px solid #e5e7eb;
+    border-top: 1px solid #e5e7eb;
+    z-index: 999;
+    transition: left .3s cubic-bezier(.4, 0, .2, 1);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 4px 0 24px rgba(0,0,0,0.05);
+  }
+  .sidebar.active {
+    left: 0;
+  }
+  
+  /* ── SIDEBAR HEADER (With Close Button) ───────────── */
+  .sidebar-header {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Pushes text left and X right */
+    border-bottom: 1px solid #f3f4f6;
+    flex-shrink: 0;
+  }
+  .sidebar-header i{
+    font-size: 25px;
+    color: #000000;
+    
+  }
+  .sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .brand-icon-box {
+    width: 42px;
+    height: 42px;
+    background: #4f46e5; /* Blue theme */
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  
+  .brand-text h1 {
+    color: #111827;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0;
+  }
+  
+  .brand-text span {
+    color: #6b7280;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: block;
+    margin-top: 2px;
+  }
+  
+  /* The Close 'X' Button in Sidebar */
+  .sidebar-close {
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    color: #9ca3af;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .2s;
+  }
+  
+  .sidebar-close:hover {
+    background: #fee2e2; /* Light red bg */
+    color: #dc2626;      /* Red text */
+    border-color: #fecaca;
+  }
+  
+  /* ── SIDEBAR NAVIGATION ────────────────────────────── */
+  .sidebar-nav {
+    padding: 16px 12px;
+    flex: 1;
+    overflow-y: auto;
+  }
+  
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    color: #4b5563;
+    text-decoration: none;
+    border-radius: 12px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all .2s ease;
+  }
+  
+  .nav-item i {
+    font-size: 18px;
+    width: 24px;
+    text-align: center;
+    color: #9ca3af;
+    transition: color .2s;
+  }
+  
+  .nav-item:hover {
+    background: #f3f4f6;
+    color: #111827;
+  }
+  .nav-item:hover i {
+    color: #4b5563;
+  }
+  
+  /* Active State (The "Pill" Look) */
+  .nav-item.active {
+    background: #4f46e5;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+  }
+  .nav-item.active i {
+    color: #ffffff;
+  }
+  
+  /* ── SIDEBAR FOOTER & LOGOUT ───────────────────────── */
+  .sidebar-footer {
+    padding: 16px 12px;
+    border-top: 1px solid #e5e7eb;
+    flex-shrink: 0;
+    background: #fff;
+  }
+  
+  .logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px;
+    background: #fef2f2;
+    color: #dc2626;
+    text-decoration: none;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  
+  .logout-btn:hover {
+    background: #fee2e2;
+    transform: translateY(-1px);
+  }
+  .logout-btn i {
+    font-size: 16px;
+  }
+  
+  /* ── OVERLAY (Dim background) ──────────────────────── */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .45);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .28s, visibility .28s;
+  }
+  .overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* ── PAGE CONTENT ──────────────────────────────────── */
+  .page-content {
+    margin-top: 64px;
+    padding: 28px 24px;
+  }
+  
+  /* ── RESPONSIVE MEDIA QUERIES ──────────────────────── */
+  @media (max-width: 768px) {
+    .top-header { padding: 0 16px; }
+    .header-profile-info { display: none; }
+    .logo-text span { display: none; }
+    .logo-text h1 { font-size: 17px; }
+    
+    .sidebar {
+      top: 64px;
+      width: 260px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .logo-text h1 { font-size: 16px; }
+    .logo-icon { width: 32px; height: 32px; font-size: 15px; }
+    
+    .sidebar {
+      width: 100%; /* Full width on small mobile */
+      left: -100%;
+    }
+    .sidebar.active {
+      left: 0;
+    }
+    
+    .brand-text h1 {
+      font-size: 16px;
+    }
+  }

@@ -1,0 +1,163 @@
+/* ================================================================
+   SmartDormX — Sign-In Page  (stunning animated)
+   ================================================================ */
+
+@import url('theme.css');
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family:'Inter','Segoe UI',system-ui,sans-serif;
+  min-height:100vh; overflow:hidden;
+  background:#0D0B2A;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── Animated background ─────────────────────────────────────── */
+.signin-bg {
+  position:fixed; inset:0; z-index:0;
+  background: radial-gradient(ellipse at 20% 50%, rgba(123,47,247,.25) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 20%, rgba(0,198,251,.20) 0%, transparent 60%),
+              radial-gradient(ellipse at 60% 80%, rgba(249,83,198,.15) 0%, transparent 60%),
+              linear-gradient(135deg, #0D0B2A 0%, #130F40 50%, #0A1628 100%);
+}
+
+/* Animated orbs */
+.orb {
+  position:absolute; border-radius:50%; filter:blur(60px); pointer-events:none;
+}
+.orb-1 {
+  width:400px; height:400px; top:-10%; left:-5%;
+  background:rgba(123,47,247,.2); animation:orb1 12s ease-in-out infinite;
+}
+.orb-2 {
+  width:350px; height:350px; bottom:-10%; right:-5%;
+  background:rgba(0,198,251,.18); animation:orb2 14s ease-in-out infinite;
+}
+.orb-3 {
+  width:250px; height:250px; top:40%; right:25%;
+  background:rgba(249,83,198,.12); animation:orb1 10s ease-in-out infinite reverse;
+}
+
+/* Grid dots */
+.signin-grid {
+  position:absolute; inset:0;
+  background-image: radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 32px 32px; pointer-events:none;
+}
+
+/* ── Card ────────────────────────────────────────────────────── */
+.signin-wrap {
+  position:relative; z-index:1; min-height:100vh;
+  display:flex; align-items:center; justify-content:center; padding:24px;
+}
+
+.signin-card {
+  background:rgba(255,255,255,.07);
+  backdrop-filter:blur(32px) saturate(150%);
+  -webkit-backdrop-filter:blur(32px) saturate(150%);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:28px;
+  width:100%; max-width:440px;
+  padding:44px 40px 36px;
+  box-shadow: 0 32px 80px rgba(0,0,0,.4), 0 0 0 1px rgba(255,255,255,.06) inset;
+  animation:scaleIn .45s cubic-bezier(.34,1.1,.64,1);
+}
+
+/* Logo */
+.signin-logo {
+  text-align:center; margin-bottom:32px;
+}
+.signin-logo-icon {
+  width:68px; height:68px; border-radius:20px;
+  background:var(--grad-primary); margin:0 auto 14px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.6rem; color:#fff;
+  box-shadow:var(--glow-primary), 0 8px 32px rgba(123,47,247,.4);
+  animation:float 4s ease-in-out infinite;
+}
+.signin-logo h1 {
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.75rem; font-weight:800; color:#fff; letter-spacing:-.5px;
+}
+.signin-logo p {
+  font-size:.8rem; color:rgba(255,255,255,.45); margin-top:4px;
+}
+
+/* Portal toggle */
+.portal-toggle {
+  display:flex; background:rgba(255,255,255,.06); border-radius:12px;
+  padding:4px; margin-bottom:28px; gap:4px;
+  border:1px solid rgba(255,255,255,.08);
+}
+.portal-tab {
+  flex:1; padding:9px 12px; border-radius:9px; border:none;
+  background:transparent; color:rgba(255,255,255,.5);
+  font-size:.84rem; font-weight:600; cursor:pointer; transition:var(--t);
+  display:flex; align-items:center; justify-content:center; gap:7px;
+}
+.portal-tab.active {
+  background:var(--grad-primary); color:#fff;
+  box-shadow:0 2px 12px rgba(123,47,247,.4);
+}
+
+/* Form fields */
+.field-group { margin-bottom:18px; }
+.field-group label {
+  display:block; font-size:.77rem; font-weight:600; letter-spacing:.04em;
+  text-transform:uppercase; color:rgba(255,255,255,.5); margin-bottom:8px;
+}
+.field-wrap { position:relative; }
+.field-wrap i {
+  position:absolute; left:14px; top:50%; transform:translateY(-50%);
+  color:rgba(255,255,255,.3); font-size:.88rem; pointer-events:none;
+}
+.field-wrap input {
+  width:100%; padding:12px 14px 12px 40px;
+  background:rgba(255,255,255,.07); border:1.5px solid rgba(255,255,255,.10);
+  border-radius:12px; color:#fff; font-size:.9rem; outline:none;
+  font-family:inherit; transition:var(--t);
+}
+.field-wrap input::placeholder { color:rgba(255,255,255,.25); }
+.field-wrap input:focus {
+  border-color:rgba(123,47,247,.7); background:rgba(255,255,255,.10);
+  box-shadow:0 0 0 3px rgba(123,47,247,.2);
+}
+
+/* Demo hint */
+.demo-hint {
+  background:rgba(123,47,247,.15); border:1px solid rgba(123,47,247,.25);
+  border-radius:10px; padding:9px 14px; margin-bottom:22px;
+  font-size:.76rem; color:rgba(255,255,255,.55); text-align:center;
+  display:flex; align-items:center; justify-content:center; gap:7px;
+}
+.demo-hint i { color:var(--cyan); font-size:.8rem; }
+
+/* Submit button */
+.signin-btn {
+  width:100%; padding:13px; border-radius:12px; border:none;
+  background:var(--grad-primary);
+  background-size:200% 200%; animation:gradientShift 4s ease infinite;
+  color:#fff; font-size:.95rem; font-weight:700; font-family:inherit;
+  cursor:pointer; transition:var(--t);
+  box-shadow:0 4px 20px rgba(123,47,247,.45);
+  display:flex; align-items:center; justify-content:center; gap:9px;
+}
+.signin-btn:hover {
+  transform:translateY(-2px);
+  box-shadow:0 8px 32px rgba(123,47,247,.55);
+}
+.signin-btn:active { transform:scale(.98); }
+
+/* Footer links */
+.signin-footer {
+  text-align:center; margin-top:24px; font-size:.75rem;
+  color:rgba(255,255,255,.3);
+}
+.signin-footer a { color:rgba(123,198,251,.7); }
+
+/* Floating particles */
+.particle {
+  position:absolute; border-radius:50%; pointer-events:none;
+  animation:float var(--dur) ease-in-out infinite var(--delay);
+}

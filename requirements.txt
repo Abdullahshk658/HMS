@@ -1,0 +1,13 @@
+# SmartDormX — Python Requirements
+# Install with: pip install -r requirements.txt
+#
+# NOTE: dlib (original dependency) replaced by opencv-contrib-python
+# which includes cv2.face (FisherFaceRecognizer) and cv2.dnn
+# No compilation required!
+
+flask>=3.0.0
+flask-cors>=4.0.0
+opencv-contrib-python-headless>=4.8.0   # includes cv2.face + cv2.dnn (headless = no GUI deps, smaller, server-safe)
+numpy>=1.24.0
+Werkzeug>=3.0.0
+gunicorn>=21.2.0

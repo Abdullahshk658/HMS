@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SmartDormX Student Directory - Manage student information across hostels">
+    <title>Student Directory | SmartDormX</title>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="residents.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="top-header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Excel Export Library -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ========== TOP HEADER ========== -->
+<header class="top-header" role="banner">
+    <div class="header-left">
+        <button class="menu-toggle-btn" id="menuToggle" onclick="toggleSidebar()" aria-label="Open sidebar menu" title="Toggle Sidebar" type="button">
+            <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+        <div class="logo-section">
+            <div class="logo-text">
+                <h1>SmartDormX</h1>
+                <span>Admin Portal</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-right">
+        <div class="profile-wrapper" onclick="toggleProfileDropdown()" role="button" tabindex="0"
+             aria-haspopup="true" aria-expanded="false" aria-label="User profile menu">
+            <div class="profile-info">
+                <span class="profile-name" id="adminName">Nabeel Ashraf</span>
+                <span class="profile-role" id="adminRole">Administrator</span>
+            </div>
+            <div class="profile-avatar" id="adminAvatar" aria-hidden="true">NA</div>
+            <i class="fas fa-chevron-down profile-arrow" id="profileArrow" aria-hidden="true"></i>
+        </div>
+        <div class="profile-dropdown" id="profileDropdown" role="menu" aria-label="Profile options">
+            <a href="profile.html" class="dropdown-link" role="menuitem">
+                <i class="fas fa-user" aria-hidden="true"></i> My Profile
+            </a>
+            <hr class="dropdown-divider">
+            <a href="sign-in.html" class="dropdown-link logout" onclick="handleLogout(event)" role="menuitem">
+                <i class="fas fa-right-from-bracket" aria-hidden="true"></i> Logout
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- ========== SIDEBAR ========== -->
+<aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="sidebar-top">
+        <div class="sidebar-brand">
+            <div class="sidebar-brand-icon" aria-hidden="true">
+                <i class="fa">SmartDorm -------</i>
+            </div>
+        </div>
+        <button class="sidebar-close-btn" onclick="toggleSidebar()" aria-label="Close sidebar menu" type="button">
+            <i class="fas fa-xmark" aria-hidden="true"></i>
+        </button>
+    </div>
+
+    <nav class="sidebar-menu" role="navigation">
+        <a href="dashboard.html" class="nav-link">
+            <i class="fas fa-house" aria-hidden="true"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="residents.html" class="nav-link active">
+            <i class="fas fa-users" aria-hidden="true"></i>
+            <span>Residents</span>
+        </a>
+        <a href="alertslogs.html" class="nav-link">
+            <i class="fas fa-tower-broadcast" aria-hidden="true"></i>
+            <span>Live TV</span>
+        </a>
+        <a href="announcements.html" class="nav-link">
+            <i class="fas fa-bullhorn" aria-hidden="true"></i>
+            <span>Announcements</span>
+        </a>
+        <a href="mess.html" class="nav-link">
+            <i class="fas fa-utensils" aria-hidden="true"></i>
+            <span>Mess & Dining</span>
+        </a>
+        <a href="payments.html" class="nav-link">
+            <i class="fas fa-credit-card" aria-hidden="true"></i>
+            <span>Payments</span>
+        </a>
+        <a href="requests.html" class="nav-link">
+            <i class="fas fa-clipboard-list" aria-hidden="true"></i>
+            <span>Requests</span>
+        </a>
+        <a href="profile.html" class="nav-link">
+            <i class="fas fa-circle-user" aria-hidden="true"></i>
+            <span>My Profile</span>
+        </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+        <a href="sign-in.html" class="logout-link" onclick="handleLogout(event)">
+            <i class="fas fa-right-from-bracket" aria-hidden="true"></i>
+            <span>Logout</span>
+        </a>
+    </div>
+</aside>
+
+<!-- ========== OVERLAY ========== -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()" aria-hidden="true"></div>
+
+<!-- ========== MAIN CONTENT ========== -->
+<main class="main-content">
+    <div class="content-wrapper">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="page-title-section">
+                <h1 class="page-title"><i class="fas fa-users"></i> Student Directory</h1>
+                <p class="page-subtitle">Manage and view all student information across hostels</p>
+            </div>
+            <div class="page-actions">
+                <button class="btn-export" onclick="exportData()">
+                    <i class="fas fa-file-excel"></i> Export to Excel
+                </button>
+                <button class="btn-add" onclick="openAddStudentModal()">
+                    <i class="fas fa-plus"></i> Add New Student
+                </button>
+            </div>
+        </div>
+
+        <!-- Toast Container -->
+        <div class="toast-container" id="toastContainer"></div>
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <div class="search-bar-container">
+                <div class="search-input-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="stuSearch" onkeyup="handleLiveSearch()"
+                           placeholder="Search by name or registration number..."
+                           class="search-input-new">
+                </div>
+                <div class="search-input-wrapper">
+                    <i class="fas fa-door-open search-icon"></i>
+                    <input type="text" id="roomSearch" onkeyup="handleLiveSearch()"
+                           placeholder="Search by room number..."
+                           class="search-input-new">
+                </div>
+            </div>
+            <div id="searchResults" class="search-results"></div>
+        </div>
+
+        <!-- All Hostels View -->
+        <div id="hostel-view">
+            <div class="section-header">
+                <h2 class="section-title">Hostel Overview</h2>
+                <span class="total-count">5 Hostels</span>
+            </div>
+            <div id="hostelGrid" class="hostel-grid"></div>
+        </div>
+
+        <!-- Room View (Hidden by default) -->
+        <div id="room-view" style="display:none;">
+            <button class="btn-back" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i> Back to Hostels
+            </button>
+            <div class="section-header">
+                <h2 class="section-title" id="selected-title"></h2>
+                <span class="total-count" id="room-count"></span>
+            </div>
+            <div id="roomGrid" class="room-grid"></div>
+        </div>
+
+    </div>
+</main>
+
+<!-- ========== PROFILE MODAL ========== -->
+<div id="profileModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title" id="modalTitle">Student Profile</h2>
+            <button class="close-btn" onclick="closeProfile()" type="button">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="profileDetails"></div>
+    </div>
+</div>
+
+<!-- ========== ADD/EDIT STUDENT MODAL ========== -->
+<div id="addEditModal" class="modal">
+    <div class="modal-content modal-lg">
+        <div class="modal-header">
+            <h2 class="modal-title" id="addEditTitle">Add New Student</h2>
+            <button class="close-btn" onclick="closeAddEditModal()" type="button">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="addEditForm"></div>
+    </div>
+</div>
+
+<!-- ========== DELETE CONFIRMATION MODAL ========== -->
+<div id="deleteModal" class="modal delete-modal">
+    <div class="modal-content delete-content">
+        <div class="delete-header">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h2>Delete Student</h2>
+        </div>
+        <div class="delete-body">
+            <p class="delete-warning"><strong>Warning:</strong> This action cannot be undone.</p>
+            <div class="student-info-box">
+                <h4>Student to be deleted:</h4>
+                <p id="deleteStudentName"></p>
+                <p id="deleteStudentReg"></p>
+            </div>
+            <div class="reason-section">
+                <label class="reason-label">
+                    Reason for deletion <span class="required">*</span>
+                </label>
+                <select id="deleteReason" class="reason-select" onchange="handleReasonChange()">
+                    <option value="">Select a reason...</option>
+                    <option value="graduated">Student Graduated</option>
+                    <option value="transferred">Transferred</option>
+                    <option value="withdrawn">Withdrew</option>
+                    <option value="other">Other</option>
+                </select>
+                <div id="otherReasonBox" class="other-reason-box" style="display: none;">
+                    <textarea id="otherReasonText" class="reason-textarea"
+                              placeholder="Please specify..."></textarea>
+                </div>
+            </div>
+            <div class="confirmation-check">
+                <input type="checkbox" id="confirmDelete" onchange="toggleDeleteButton()">
+                <label for="confirmDelete">
+                    I understand this will permanently delete the student
+                </label>
+            </div>
+        </div>
+        <div class="delete-footer">
+            <button class="btn-cancel-delete" onclick="closeDeleteModal()" type="button">
+                <i class="fas fa-times"></i> Cancel
+            </button>
+            <button class="btn-confirm-delete" id="confirmDeleteBtn"
+                    onclick="confirmDeleteStudent()" disabled type="button">
+                <i class="fas fa-trash-alt"></i> Delete
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ========== JAVASCRIPT ========== -->
+
+<!-- Supabase JS Client (v2) -->
+<script src="supabase-proxy.js"></script>
+
+<!-- Supabase Config -->
+<script src="supabase-config.js"></script>
+
+<!-- Supabase Helpers (CRUD functions) -->
+<script src="supabase-helpers.js"></script>
+
+<!-- Your existing scripts -->
+<script src="residents.js"></script>
+<script src="top-header.js"></script>
+<script src="migration-tool.js"></script>
+</body>
+</html>

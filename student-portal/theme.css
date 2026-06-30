@@ -1,0 +1,138 @@
+/* ================================================================
+   SmartDormX — Master Design System v2.0
+   Unique aurora-violet × neon-cyan palette  •  Glassmorphism UI
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+/* ── Design Tokens ─────────────────────────────────────────────── */
+:root {
+  /* Brand gradients */
+  --grad-primary:    linear-gradient(135deg, #7B2FF7 0%, #00C6FB 100%);
+  --grad-sidebar:    linear-gradient(180deg, #0D0B2A 0%, #130F40 60%, #1A1065 100%);
+  --grad-accent:     linear-gradient(135deg, #f953c6 0%, #b91d73 100%);
+  --grad-success:    linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  --grad-warning:    linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+  --grad-danger:     linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%);
+  --grad-teal:       linear-gradient(135deg, #00b4d8 0%, #0077b6 100%);
+  --grad-purple:     linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+  --grad-orange:     linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+  --grad-card-hover: linear-gradient(135deg, rgba(123,47,247,0.06) 0%, rgba(0,198,251,0.06) 100%);
+
+  /* Solid colours */
+  --primary:   #7B2FF7;
+  --primary-2: #5A18D4;
+  --cyan:      #00C6FB;
+  --success:   #11998e;
+  --warning:   #f7971e;
+  --danger:    #FF416C;
+  --purple:    #a855f7;
+  --teal:      #00b4d8;
+  --orange:    #f97316;
+  --pink:      #f953c6;
+
+  /* Neutrals */
+  --white:     #ffffff;
+  --bg:        #F2F0FF;
+  --bg-2:      #EDEAFF;
+  --border:    rgba(123,47,247,0.12);
+  --border-2:  rgba(0,0,0,0.06);
+  --text-1:    #0D0B2A;
+  --text-2:    #4B4775;
+  --text-3:    #8B87B0;
+
+  /* Sidebar */
+  --sb-bg:     #0D0B2A;
+  --sb-border: rgba(255,255,255,0.06);
+  --sb-text:   rgba(255,255,255,0.65);
+  --sb-icon:   rgba(255,255,255,0.45);
+  --sb-hover:  rgba(255,255,255,0.06);
+  --sb-active: rgba(123,47,247,0.25);
+  --sb-glow:   rgba(123,47,247,0.5);
+
+  /* Header */
+  --header-h:  68px;
+  --sidebar-w: 265px;
+
+  /* Radii */
+  --r-sm:  8px;
+  --r:     14px;
+  --r-lg:  20px;
+  --r-xl:  28px;
+  --r-full: 9999px;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 3px rgba(13,11,42,0.06);
+  --shadow-sm: 0 2px 8px rgba(13,11,42,0.08);
+  --shadow:    0 4px 20px rgba(13,11,42,0.10);
+  --shadow-md: 0 8px 32px rgba(13,11,42,0.12);
+  --shadow-lg: 0 16px 48px rgba(13,11,42,0.16);
+  --glow-primary: 0 0 24px rgba(123,47,247,0.35);
+  --glow-cyan:    0 0 24px rgba(0,198,251,0.35);
+
+  /* Transitions */
+  --t-fast:   all 0.15s cubic-bezier(.4,0,.2,1);
+  --t:        all 0.25s cubic-bezier(.4,0,.2,1);
+  --t-slow:   all 0.4s  cubic-bezier(.4,0,.2,1);
+}
+
+/* ── Reset & Base ──────────────────────────────────────────────── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text-1);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; font-family: inherit; }
+img { max-width: 100%; }
+
+/* ── Scrollbar ──────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(123,47,247,0.25); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(123,47,247,0.5); }
+
+/* ── Typography Utilities ───────────────────────────────────────── */
+.gradient-text {
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Glass Card Base ────────────────────────────────────────────── */
+.glass {
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.6);
+}
+
+/* ── Keyframe Animations ────────────────────────────────────────── */
+@keyframes fadeInUp   { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+@keyframes fadeIn     { from { opacity:0; } to { opacity:1; } }
+@keyframes scaleIn    { from { opacity:0; transform:scale(.96); } to { opacity:1; transform:none; } }
+@keyframes pulseGlow  { 0%,100% { box-shadow: 0 0 0 0 rgba(123,47,247,.4); } 50% { box-shadow: 0 0 0 8px rgba(123,47,247,0); } }
+@keyframes shimmer    { 0% { background-position: -400px 0; } 100% { background-position: 400px 0; } }
+@keyframes spin       { to { transform: rotate(360deg); } }
+@keyframes blink      { 0%,100% { opacity:1; } 50% { opacity:.3; } }
+@keyframes float      { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
+@keyframes orb1       { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(30px,-20px) scale(1.1); } }
+@keyframes orb2       { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(-20px,30px) scale(0.9); } }
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes countUp {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:none; }
+}

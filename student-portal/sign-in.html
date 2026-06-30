@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Student Sign In — SmartDormX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="theme.css"/>
+  <link rel="stylesheet" href="../frontend/sign-in.css"/>
+  <style>
+    .signin-logo-icon { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); box-shadow: 0 0 24px rgba(17,153,142,.4), 0 8px 32px rgba(17,153,142,.3); }
+    .portal-tab.active { background: linear-gradient(135deg,#11998e,#38ef7d); }
+    .signin-btn { background: linear-gradient(135deg,#11998e,#38ef7d); }
+    .demo-hint { background:rgba(17,153,142,.15); border-color:rgba(17,153,142,.3); }
+  </style>
+</head>
+<body>
+<div class="signin-bg">
+  <div class="signin-grid"></div>
+  <div class="orb orb-1" style="background:rgba(17,153,142,.18)"></div>
+  <div class="orb orb-2" style="background:rgba(56,239,125,.15)"></div>
+  <div class="orb orb-3" style="background:rgba(0,198,251,.12)"></div>
+</div>
+
+<div class="signin-wrap">
+  <div class="signin-card">
+    <div class="signin-logo">
+      <div class="signin-logo-icon"><i class="fas fa-graduation-cap"></i></div>
+      <h1>SmartDormX</h1>
+      <p>Student Portal — PAF-IAST</p>
+    </div>
+
+    <div class="portal-toggle" style="margin-bottom:28px">
+      <button class="portal-tab active"><i class="fas fa-graduation-cap"></i> Student Login</button>
+    </div>
+
+    <div class="field-group">
+      <label>Roll Number / Email</label>
+      <div class="field-wrap">
+        <i class="fas fa-id-card"></i>
+        <input type="text" id="rollInput" placeholder="B22F1154CS030 or ahmed@paf-iast.edu.pk"/>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Password</label>
+      <div class="field-wrap">
+        <i class="fas fa-lock"></i>
+        <input type="password" id="passInput" placeholder="••••••••"/>
+      </div>
+    </div>
+
+    <div class="demo-hint">
+      <i class="fas fa-circle-info"></i>
+      Demo mode — any roll number and password accepted
+    </div>
+
+    <button class="signin-btn" onclick="doLogin()">
+      <i class="fas fa-right-to-bracket"></i> Sign In as Student
+    </button>
+
+    <div class="signin-footer" style="margin-top:18px">
+      <a href="../frontend/sign-in.html" style="color:rgba(56,239,125,.7)">← Back to Admin Portal</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function doLogin() {
+    var r = document.getElementById('rollInput').value.trim();
+    var p = document.getElementById('passInput').value.trim();
+    if (!r || !p) { alert('Please enter roll number and password'); return; }
+    setTimeout(() => window.location.href='std-dashboard.html', 600);
+  }
+  document.addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+</script>
+</body>
+</html>

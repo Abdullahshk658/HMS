@@ -1,0 +1,83 @@
+/* ================================================================
+   SmartDormX Student Portal — Page Styles
+   ================================================================ */
+
+/* Student theme accent: emerald-green */
+:root {
+  --student-primary:     #11998e;
+  --student-primary-2:   #0a7a72;
+  --student-grad:        linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  --student-glow:        0 0 24px rgba(17,153,142,.35);
+}
+
+/* Override sidebar brand for student portal */
+.sidebar-logo-icon { background: var(--student-grad); box-shadow: var(--student-glow); }
+.nav-link.active {
+  background: rgba(17,153,142,.22);
+  box-shadow: inset 0 0 0 1px rgba(17,153,142,.35), var(--student-glow);
+}
+.nav-link.active::before { background: var(--student-grad); }
+.nav-link.active i { color: #38ef7d; }
+.btn-primary { background: var(--student-grad); box-shadow: 0 4px 12px rgba(17,153,142,.35); }
+.btn-primary:hover { box-shadow: 0 6px 20px rgba(17,153,142,.45); }
+.badge-primary { background: rgba(17,153,142,.12); color: var(--student-primary); }
+
+/* Student stat cards */
+.stat-icon.green { background: rgba(17,153,142,.12); color: var(--student-primary); box-shadow: 0 4px 12px rgba(17,153,142,.2); }
+
+/* Student-specific cards */
+.std-card {
+  background:#fff; border-radius:var(--r-lg);
+  border:1px solid var(--border); box-shadow:var(--shadow-sm);
+  padding:22px; margin-bottom:16px; transition:var(--t);
+  animation:fadeInUp .38s ease both;
+}
+.std-card:hover { box-shadow:var(--shadow-md); transform:translateY(-1px); }
+
+.std-hero {
+  background:var(--student-grad); border-radius:var(--r-lg);
+  padding:28px; color:#fff; position:relative; overflow:hidden;
+  margin-bottom:20px; display:flex; align-items:center; gap:20px;
+}
+.std-hero::before {
+  content:''; position:absolute; right:-30px; top:-30px;
+  width:160px; height:160px; border-radius:50%; background:rgba(255,255,255,.08);
+}
+.std-hero-avatar {
+  width:72px; height:72px; border-radius:50%; flex-shrink:0;
+  background:rgba(255,255,255,.2); border:3px solid rgba(255,255,255,.4);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.4rem; font-weight:800; position:relative; z-index:1;
+}
+.std-hero-info { position:relative; z-index:1; }
+.std-hero-info h2 { font-family:"Space Grotesk",sans-serif; font-size:1.3rem; font-weight:700; margin-bottom:3px; }
+.std-hero-info p  { font-size:.82rem; opacity:.8; }
+
+/* Notification item */
+.notif-item {
+  border-left:3px solid var(--student-primary);
+  background:rgba(17,153,142,.06); border-radius:0 var(--r-sm) var(--r-sm) 0;
+  padding:12px 14px; margin-bottom:8px;
+}
+.notif-item.high   { border-color:var(--danger); background:rgba(255,65,108,.06); }
+.notif-item.medium { border-color:var(--warning); background:rgba(247,151,30,.06); }
+.notif-title { font-size:.87rem; font-weight:700; color:var(--text-1); margin-bottom:3px; }
+.notif-text  { font-size:.8rem; color:var(--text-2); margin-bottom:5px; }
+.notif-meta  { font-size:.72rem; color:var(--text-3); display:flex; gap:10px; }
+
+/* Fee card */
+.fee-status-card {
+  border-radius:var(--r-lg); padding:20px; color:#fff; margin-bottom:12px;
+  position:relative; overflow:hidden; transition:var(--t);
+}
+.fee-status-card.paid    { background:var(--grad-success); }
+.fee-status-card.unpaid  { background:var(--grad-danger); }
+.fee-status-card.overdue { background:var(--grad-warning); }
+.fee-status-card:hover { transform:translateY(-2px); box-shadow:var(--shadow-md); }
+.fee-semester { font-size:.75rem; font-weight:600; opacity:.8; margin-bottom:4px; }
+.fee-amount   { font-family:"Space Grotesk",sans-serif; font-size:1.7rem; font-weight:800; }
+.fee-due      { font-size:.75rem; opacity:.75; margin-top:4px; }
+.fee-badge    { position:absolute; right:16px; top:50%; transform:translateY(-50%); font-size:1.8rem; opacity:.2; }
+.fee-actions  { margin-top:12px; display:flex; gap:8px; }
+.fee-actions .btn { background:rgba(255,255,255,.2); border:1px solid rgba(255,255,255,.3); color:#fff; }
+.fee-actions .btn:hover { background:rgba(255,255,255,.35); }

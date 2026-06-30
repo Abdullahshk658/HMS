@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mess Management | SmartDormX</title>
+  <link rel="stylesheet" href="../frontend/theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="header-slidebar.css">
+  <link rel="stylesheet" href="std-mess.css">
+    <link rel="stylesheet" href="student-portal.css"/>
+</head>
+<body>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- ═══════════════════════════════════════════
+     TOP HEADER
+     ═══════════════════════════════════════════ -->
+<header class="top-header">
+  <div class="header-left">
+    <!-- Hamburger Menu Trigger -->
+    <button class="menu-trigger" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Logo Section -->
+    <div class="logo-section">
+      <div class="logo-text">
+        <h1>Fachhochschule</h1>
+        <span>Student Portal</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="header-right">
+    <!-- Profile Section -->
+    <button class="header-profile-section" onclick="toggleProfileDropdown()">
+      <div class="header-profile-info">
+        <span class="header-profile-name" id="headerName">Fahad Ali</span>
+        <span class="header-profile-role" id="headerRole">B22F0403CS046</span>
+      </div>
+      <div class="header-profile-avatar" id="headerAvatar">FA</div>
+      <i class="fas fa-chevron-down profile-arrow" id="profileArrow"></i>
+    </button>
+    
+    <!-- Profile Dropdown Menu -->
+    <div class="profile-dropdown" id="profileDropdown">
+      <a href="std-profile.html" class="dropdown-item">
+        <i class="fas fa-user"></i> My Profile
+      </a>
+      <div class="dropdown-divider"></div>
+      <a href="sign-in.html" class="dropdown-item logout">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+    </div>
+  </div>
+</header>
+</header>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  
+  <!-- Sidebar Header with Close Icon -->
+  <div class="sidebar-header"><i>SmartDorm ----</i>
+    <!-- Close Button (X) - LEFT SIDE -->
+    <button class="sidebar-close" onclick="closeSidebar()">
+      <i class="fas fa-times"></i>
+    </button>
+    
+    <!-- Right side content (optional - could be logo or text) -->
+    <div class="sidebar-header-right">
+      <div class="logo-indicator"></div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a href="std-dashboard.html" class="nav-item">
+      <i class="fas fa-home"></i> <span>Dashboard</span>
+    </a>
+    <a href="std-room.html" class="nav-item">
+      <i class="fas fa-bed"></i> <span>My Room</span>
+    </a>
+    <a href="std-mess.html" class="nav-item active">
+      
+      <i class="fas fa-utensils"></i> <span>Mess & Dining</span>
+    </a>
+    <a href="std-fee.html" class="nav-item">
+      <i class="fas fa-file-invoice-dollar"></i> <span>My Fee</span>
+    </a>
+    <a href="std-requests.html" class="nav-item">
+      <i class="fas fa-clipboard-check"></i> <span>Requests</span>
+    </a>
+    <a href="std-notifications.html" class="nav-item">
+      <i class="fas fa-bell"></i> <span>Notifications</span>
+    </a>
+    <a href="std-profile.html" class="nav-item">
+      <i class="fas fa-user-circle"></i> <span>My Profile</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <a href="sign-in.html" class="logout-btn">
+      <i class="fas fa-right-from-bracket"></i> <span>Logout</span>
+    </a>
+  </div>
+</aside>
+
+<main class="container">
+  <div class="page-title-section"><div class="page-icon-wrapper"><i class="fas fa-utensils"></i></div><div class="page-title-content"><h1 class="page-title">My Mess</h1><p class="page-subtitle">View daily menus, manage meal plans, and check mess timings</p></div></div>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-icon blue"><i class="fas fa-utensils"></i></div><div class="stat-label">Monthly Plan</div><div class="stat-value">Rs 4,500</div><div class="stat-sub">3 meals/day</div></div>
+    <div class="stat-card"><div class="stat-icon blue"><i class="fas fa-egg"></i></div><div class="stat-label">Meals Per Day</div><div class="stat-value">3</div><div class="stat-sub">Breakfast + Lunch + Dinner</div></div>
+    <div class="stat-card"><div class="stat-icon green"><i class="fas fa-check-circle"></i></div><div class="stat-label">Mess Status</div><div class="stat-value success">Active</div><div class="stat-sub">Operational</div></div>
+    <div class="stat-card"><div class="stat-icon blue"><i class="far fa-calendar-check"></i></div><div class="stat-label">Valid Till</div><div class="stat-value">31 Dec 2025</div><div class="stat-sub">Semester plan</div></div>
+  </div>
+  <div class="card payment-card">
+    <div class="card-header"><div class="card-title"><i class="fas fa-receipt"></i> Payment Status <span class="status-badge"><i class="fas fa-check-circle"></i> Paid</span></div><a href="std-fee.html" class="btn-primary" id="payNowBtn"><i class="fas fa-credit-card"></i> View Fees</a></div>
+    <div class="payment-details">
+      <div class="detail-item"><span class="label">Current Plan</span><span class="value">Monthly (Rs 4,500)</span></div>
+      <div class="detail-item"><span class="label">Due Date</span><span class="value">5th of every month</span></div>
+      <div class="detail-item"><span class="label">Last Payment</span><span class="value">Rs 4,500 (01 Dec 2025)</span></div>
+      <div class="detail-item"><span class="label">Next Billing</span><span class="value highlight">01 Jan 2026</span></div>
+    </div>
+  </div>
+  <div class="card attendance-card">
+    <div class="card-header"><div class="card-title"><i class="fas fa-bell"></i> Meal Attendance <span class="subtext">Mark your availability for today</span></div></div>
+    <div class="attendance-grid">
+      <div class="attendance-row" id="row-breakfast"><div class="meal-info"><div class="meal-icon breakfast"><i class="fas fa-coffee"></i></div><div><h3>Breakfast</h3><span>07:00 - 09:00 AM</span></div></div><div class="attendance-actions"><button class="btn-coming" data-meal="breakfast" data-status="coming">Coming</button><button class="btn-skip" data-meal="breakfast" data-status="skip">Skip</button></div></div>
+      <div class="attendance-row" id="row-lunch"><div class="meal-info"><div class="meal-icon lunch"><i class="fas fa-utensils"></i></div><div><h3>Lunch</h3><span>13:00 - 15:00 PM</span></div></div><div class="attendance-actions"><button class="btn-coming" data-meal="lunch" data-status="coming">Coming</button><button class="btn-skip" data-meal="lunch" data-status="skip">Skip</button></div></div>
+      <div class="attendance-row" id="row-dinner"><div class="meal-info"><div class="meal-icon dinner"><i class="fas fa-moon"></i></div><div><h3>Dinner</h3><span>20:00 - 22:00 PM</span></div></div><div class="attendance-actions"><button class="btn-coming" data-meal="dinner" data-status="coming">Coming</button><button class="btn-skip" data-meal="dinner" data-status="skip">Skip</button></div></div>
+    </div>
+  </div>
+  <div class="card timings-card">
+    <div class="card-header"><div class="card-title"><i class="fas fa-clock"></i> Mess Timings</div></div>
+    <div class="timings-grid">
+      <div class="timing-box"><i class="fas fa-sun"></i><div><div class="time-label">Breakfast</div><div class="time-value">7:30 AM - 9:00 AM</div></div></div>
+      <div class="timing-box"><i class="fas fa-cloud-sun"></i><div><div class="time-label">Lunch</div><div class="time-value">12:30 PM - 2:00 PM</div></div></div>
+      <div class="timing-box"><i class="fas fa-moon"></i><div><div class="time-label">Dinner</div><div class="time-value">7:30 PM - 9:00 PM</div></div></div>
+      <div class="timing-box"><i class="fas fa-mug-hot"></i><div><div class="time-label">Snacks</div><div class="time-value">5:00 PM - 6:00 PM</div></div></div>
+    </div>
+  </div>
+  <div class="card rules-card">
+    <div class="card-header"><div class="card-title"><i class="fas fa-gavel"></i> Guidelines</div></div>
+    <div class="rules-grid">
+      <div class="rule-item"><i class="fas fa-broom"></i> Maintain dining area cleanliness</div>
+      <div class="rule-item"><i class="fas fa-trash-alt"></i> Zero food waste policy</div>
+      <div class="rule-item"><i class="fas fa-notes-medical"></i> Report dietary restrictions</div>
+      <div class="rule-item"><i class="fas fa-ban"></i> Outside food not permitted</div>
+    </div>
+  </div>
+  <div class="card menu-card">
+    <div class="card-header"><div class="card-title"><i class="fas fa-calendar-week"></i> Weekly Menu</div><span class="fresh-badge"><i class="fas fa-leaf"></i> Freshly Prepared</span></div>
+    <div class="day-selector" id="daySelector">
+      <button class="day-btn" data-day="Mon">Mon</button><button class="day-btn" data-day="Tue">Tue</button><button class="day-btn" data-day="Wed">Wed</button>
+      <button class="day-btn" data-day="Thu">Thu</button><button class="day-btn" data-day="Fri">Fri</button><button class="day-btn" data-day="Sat">Sat</button><button class="day-btn" data-day="Sun">Sun</button>
+    </div>
+    <div class="meals-horizontal">
+      <div class="meal-section"><h3><i class="fas fa-coffee"></i> Breakfast</h3><ul id="breakfastList"></ul></div>
+      <div class="meal-section"><h3><i class="fas fa-utensils"></i> Lunch</h3><ul id="lunchList"></ul></div>
+      <div class="meal-section"><h3><i class="fas fa-moon"></i> Dinner</h3><ul id="dinnerList"></ul></div>
+    </div>
+    <div class="menu-footer"><i class="fas fa-info-circle"></i> Menu subject to seasonal changes. Special meals served on festivals.</div>
+  </div>
+</main>
+<footer class="footer"><i class="far fa-copyright"></i> PAFIRST Hostel Mess Management | Contact mess supervisor for assistance</footer>
+<div class="toast-container" id="toastContainer"></div>
+<!-- 1. Supabase JS Library (v2) -->
+<script src="supabase-proxy.js"></script>
+<!-- 2. Config & helpers File -->
+<script src="supabase-config.js"></script>
+<script src="supabase-helpers.js"></script>
+<!-- 3. Existing scripts -->
+<script src="header-slidebar.js"></script>
+<script src="std-mess.js"></script>
+</body>
+</html>
