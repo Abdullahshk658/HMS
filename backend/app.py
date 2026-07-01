@@ -8,7 +8,7 @@ All original REST endpoints preserved.
 
 import os, csv, shutil, uuid, time, threading
 import cv2, numpy as np
-from flask import Flask, request, jsonify, Response, send_from_directory
+from flask import Flask, request, jsonify, Response, send_from_directory, redirect
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from datetime import datetime
@@ -212,7 +212,7 @@ def video_feed():
 
 @app.route('/')
 def index():
-    return send_from_directory(FRONTEND_DIR, 'sign-in.html')
+    return redirect('/frontend/sign-in.html')
 
 @app.route('/frontend/<path:f>')
 def frontend_static(f):
