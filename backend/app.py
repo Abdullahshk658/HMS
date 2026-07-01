@@ -121,7 +121,6 @@ class CameraRecognizer:
         self.cap = cv2.VideoCapture(0)
         if not self.cap.isOpened():
             print('[WARN] No camera found — running demo stream.')
-            self.running = False
             self._demo_loop()
             return
 
@@ -143,8 +142,10 @@ class CameraRecognizer:
         self.cap.release()
 
     def _demo_loop(self):
-        """Fallback: generate a branded frame when no camera."""
-        while True:
+        """Fallback: generate a branded frame when no camera. Respects
+        self.running so stop_camera() can actually terminate this thread
+        instead of leaking a new one on every subsequent request."""
+        while self.running:
             img = np.zeros((480, 640, 3), dtype=np.uint8)
             img[:] = (30, 30, 45)
             ts = datetime.now().strftime('%H:%M:%S')
@@ -422,7 +423,7 @@ def demo_enroll():
 # ── Camera autostart ──────────────────────────────────────────────────────────
 @app.before_request
 def before_request():
-    if request.endpoint in ('video_feed', 'index') and not camera.running:
+    if request.endpoint == 'video_feed' and not camera.running:
         camera.start_camera()
 
 
